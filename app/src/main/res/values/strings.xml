@@ -15,4 +15,40 @@
     <string name="title_dashboard">Pesanan</string>
     <string name="title_notifications">Notifikasi</string>
     <string name="title_profil">Profil</string>
+
+
+    <!-- Petani Dashboard -->
+    <string name="petani_dashboard_nama">Toko Roby</string>
+    <string name="petani_dashboard_pengelola">Pengelola: Roby D. Pasaribu</string>
+    <string name="petani_dashboard_atur_produk">ATUR PRODUK PENJUALAN</string>
+    <string name="petani_dashboard_pesanan">PESANAN MASUK</string>
+    <string name="petani_dashboard_pengiriman">PESANAN DALAM PROSES PENGIRIMAN</string>
+    <string name="petani_dashboard_pesanan_sampai">PESANAN SUDAH SAMPAI KE LOKASI PENGIRIMAN</string>
+    <string name="petani_dashboard_pesanan_selesai">PESANAN SELESAI</string>
+    <string name="petani_dashboard_pesanan_batal">PESANAN BATAL</string>
+    <string name="petani_dashboard_pendapatan">LIHAT PENDAPATAN</string>
+    <string name="petani_dashboard_keluar">KELUAR</string>
+
+
+    <!-- Atur Produk Penjualan -->
+    <string name="atur_produk_penjualan">ATUR PRODUK PENJUALAN</string>
+    <string name="atur_produk_penjualan_kategori">SEMUA</string>
+    <string name="atur_produk_penjualan_huruf">A - Z</string>
+    <string name="atur_produk_penjualan_pisang">Pisang Cavendish</string>
+    <string name="atur_produk_penjualan_harga_pisang">Harga : Rp 30.000</string>
+    <string name="atur_produk_penjualan_apel">Apel</string>
+    <string name="atur_produk_penjualan_harga_apel">Harga : Rp 35.000</string>
+
+
+    <!-- Tambah Produk Penjualan -->
+    <string name="tambah_produk_penjualan">TAMBAH PRODUK PENJUALAN</string>
+    <string name="tambah_produk_penjualan_upload_foto_produk">Upload Foto Produk :</string>
+    <string name="tambah_produk_penjualan_nama_produk">Nama Produk :</string>
+    <string name="tambah_produk_penjualan_nama_produk_text">NAMA PRODUK</string>
+    <string name="tambah_produk_penjualan_harga_produk">Harga Produk :</string>
+    <string name="tambah_produk_penjualan_harga_produk_text">HARGA PRODUK</string>
+    <string name="tambah_produk_penjualan_simpan">SIMPAN</string>
+
+
+
 </resources>
