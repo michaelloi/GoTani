@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">GoTani</string>
+
+
+    <string name="urlacces">https://teberam.com/skripsi_roby/</string>
+    <string name="urlaccesdocuments">https://teberam.com/skripsi_roby/</string>
+
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -13,4 +18,10 @@
     <string name="title_pesanan">Pesanan</string>
     <string name="title_notifications">Notifikasi</string>
     <string name="title_dashboard">Akun</string>
+
+    <string-array name="lokasi_arrays">
+        <item>Pilih Lokasi</item>
+        <item>Kabanjahe</item>
+        <item>Berastagi</item>
+    </string-array>
 </resources>
