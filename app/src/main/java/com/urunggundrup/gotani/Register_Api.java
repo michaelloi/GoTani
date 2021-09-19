@@ -1,5 +1,7 @@
 package com.urunggundrup.gotani;
 
+import com.urunggundrup.gotani.model.Model;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -23,6 +25,12 @@ public interface Register_Api {
     Call<Model> loginUser(
             @Field("username") String username,
             @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("ListLokasi.php")
+    Call<Model> listLokasi(
+            @Field("iduser") String iduser
     );
 
 }

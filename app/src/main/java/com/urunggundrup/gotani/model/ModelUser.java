@@ -1,4 +1,4 @@
-package com.urunggundrup.gotani;
+package com.urunggundrup.gotani.model;
 
 public class ModelUser {
     String id_user,username,password,nama_user,no_hp,lokasi,status,id_toko,nama_toko,created_date;

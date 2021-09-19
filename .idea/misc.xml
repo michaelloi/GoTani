@@ -11,9 +11,11 @@
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_hijau.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_merah.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_white.xml" value="0.1125" />
-        <entry key="..\:/GoTani/app/src/main/res/layout/activity_main.xml" value="0.12395833333333334" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_add_produk.xml" value="0.14990942028985507" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.13405797101449277" />
-        <entry key="..\:/GoTani/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/content_add_produk.xml" value="0.14990942028985507" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_notifications.xml" value="0.13903985507246377" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_pesanan.xml" value="0.12395833333333334" />

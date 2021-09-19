@@ -3,13 +3,11 @@ package com.urunggundrup.gotani.ui.dashboard;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -17,19 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.urunggundrup.gotani.MainActivity;
-import com.urunggundrup.gotani.Model;
+import com.urunggundrup.gotani.adapter.AdapterSpinnerLokasi;
+import com.urunggundrup.gotani.model.Model;
 import com.urunggundrup.gotani.R;
 import com.urunggundrup.gotani.Register_Api;
 import com.urunggundrup.gotani.SessionManager;
 import com.urunggundrup.gotani.databinding.FragmentDashboardBinding;
+import com.urunggundrup.gotani.model.ModelLokasi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,16 +40,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DashboardFragment extends Fragment {
 
     SessionManager sessionManager;
-    private DashboardViewModel dashboardViewModel;
     private FragmentDashboardBinding binding;
     private String slokasi="";
     private String sStatus="";
     private ProgressDialog progress;
     String sId, sNama, sStatusLogin, sNamaToko;
+    AdapterSpinnerLokasi adapterSpinnerLokasi;
+    Spinner spinnerLokasiRegister;
+    List<ModelLokasi> listLokasi = new ArrayList<>();
+    List<String> listNamaLokasi = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
@@ -68,7 +70,7 @@ public class DashboardFragment extends Fragment {
         EditText eUsernameRegister = binding.dashboardUsername;
         EditText ePasswordRegister = binding.dashboardPassword;
         TextView textToLogin = binding.dashboardLoginText;
-        Spinner spinnerLokasiRegister = binding.dashboardLokasi;
+        spinnerLokasiRegister = binding.dashboardLokasi;
         LinearLayout btnPembeli = binding.dashboardPembeli;
         LinearLayout btnPetani = binding.dashboardPetani;
 
@@ -112,6 +114,7 @@ public class DashboardFragment extends Fragment {
             linearRegister.setVisibility(View.GONE);
             linearSimpanNamaToko.setVisibility(View.GONE);
 
+            //Set Session Login Pembeli Element
             tNamaLoginPembeli.setText("Hai "+sNama);
             btnLogutPembeli.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,6 +128,17 @@ public class DashboardFragment extends Fragment {
             linearLogin.setVisibility(View.GONE);
             linearRegister.setVisibility(View.GONE);
             linearSimpanNamaToko.setVisibility(View.GONE);
+
+            //Set Session Login Petani Element
+            namaToko.setText(sNamaToko);
+            namaPetani.setText("Pengelola : "+sNama);
+            btnLogoutPetani.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sessionManager.logoutUser();
+                }
+            });
+
         }else{
             linearLogin.setVisibility(View.VISIBLE);
             linearRegister.setVisibility(View.GONE);
@@ -152,23 +166,16 @@ public class DashboardFragment extends Fragment {
         });
 
         //Spinner Register Lokasi
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.lokasi_arrays, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerLokasiRegister.setAdapter(adapter);
+        loadListLokasi("");
         spinnerLokasiRegister.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i>0){
-                    slokasi=adapterView.getSelectedItem().toString();
-                }
+                slokasi = listLokasi.get(spinnerLokasiRegister.getSelectedItemPosition()).getId_lokasi();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                slokasi="";
+                slokasi = listLokasi.get(0).getId_lokasi();
             }
         });
 
@@ -216,15 +223,22 @@ public class DashboardFragment extends Fragment {
                     linearRegister.setVisibility(View.GONE);
                     linearSessionLoginPetani.setVisibility(View.GONE);
                     linearSessionLoginPembeli.setVisibility(View.GONE);
-
-                    if(eNamaToko.getText().length()==0){
-                        eNamaToko.setError("Nama Toko harus di isi");
-                    }else{
-                        registerPengguna(eNamaRegister.getText().toString(), eNohpRegister.getText().toString(), eUsernameRegister.getText().toString(), ePasswordRegister.getText().toString(), slokasi, sStatus,eNamaToko.getText().toString());
-                    }
                 }
             }
         });
+
+        //Simpan Nama Toko
+        btnSimpanNamaToko.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(eNamaToko.getText().length()==0){
+                    eNamaToko.setError("Nama Toko harus di isi");
+                }else{
+                    registerPengguna(eNamaRegister.getText().toString(), eNohpRegister.getText().toString(), eUsernameRegister.getText().toString(), ePasswordRegister.getText().toString(), slokasi, sStatus,eNamaToko.getText().toString());
+                }
+            }
+        });
+
 
         //Login proses
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +323,35 @@ public class DashboardFragment extends Fragment {
                 a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(a);
                 Toast.makeText(getActivity(), "Selamat datang "+response.body().getUser().getNama_user(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                t.printStackTrace();
+                progress.dismiss();
+                Toast.makeText(getActivity(), "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadListLokasi(String iduser){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getActivity().getResources().getString(R.string.urlacces))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Register_Api api = retrofit.create(Register_Api.class);
+        Call<Model> call = api.listLokasi(iduser);
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+
+                if(response.body().getValue().equalsIgnoreCase("1")){
+                    listLokasi = response.body().getList_lokasi();
+
+                    adapterSpinnerLokasi = new AdapterSpinnerLokasi(getActivity().getApplicationContext(), listLokasi);
+                    spinnerLokasiRegister.setAdapter(adapterSpinnerLokasi);
+                }
             }
 
             @Override
