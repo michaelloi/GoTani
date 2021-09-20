@@ -15,10 +15,14 @@
         android:theme="@style/Theme.GoTani"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AturProdukPenjualan"
+            android:exported="true"
+            android:label="@string/title_activity_atur_produk_penjualan"
+            android:theme="@style/Theme.GoTani.NoActionBar" />
+        <activity
             android:name=".Add_Produk"
             android:exported="true"
-            android:label="@string/title_activity_add_produk"
-            android:theme="@style/Theme.GoTani.NoActionBar" />
+            android:label="@string/title_activity_add_produk" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

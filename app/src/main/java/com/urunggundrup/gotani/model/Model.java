@@ -6,7 +6,7 @@ public class Model {
     String value,message;
     ModelUser user;
     List<ModelLokasi> list_lokasi;
-
+    List<ModelStatusPesanan> list_status_pesanan;
 
     public String getValue() {
         return value;
@@ -38,5 +38,13 @@ public class Model {
 
     public void setList_lokasi(List<ModelLokasi> list_lokasi) {
         this.list_lokasi = list_lokasi;
+    }
+
+    public List<ModelStatusPesanan> getList_status_pesanan() {
+        return list_status_pesanan;
+    }
+
+    public void setList_status_pesanan(List<ModelStatusPesanan> list_status_pesanan) {
+        this.list_status_pesanan = list_status_pesanan;
     }
 }

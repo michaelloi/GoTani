@@ -33,4 +33,9 @@ public interface Register_Api {
             @Field("iduser") String iduser
     );
 
+    @FormUrlEncoded
+    @POST("ListStatusPesanan.php")
+    Call<Model> listStatusPesanan(
+            @Field("iduser") String iduser
+    );
 }

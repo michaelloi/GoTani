@@ -15,10 +15,10 @@ import java.util.List;
 
 public class AdapterSpinnerLokasi extends BaseAdapter {
     Context context;
-    private List<ModelLokasi> listLokasi = new ArrayList<>();
+    private List<String> listLokasi = new ArrayList<>();
     LayoutInflater inflter;
 
-    public AdapterSpinnerLokasi(Context applicationContext, List<ModelLokasi> listLokasi) {
+    public AdapterSpinnerLokasi(Context applicationContext, List<String> listLokasi) {
         this.context = applicationContext;
         this.listLokasi = listLokasi;
         inflter = (LayoutInflater.from(applicationContext));
@@ -44,7 +44,7 @@ public class AdapterSpinnerLokasi extends BaseAdapter {
         view = inflter.inflate(R.layout.spinner_item, null);
         TextView namaLokasiText = view.findViewById(R.id.textSpinner);
 
-        namaLokasiText.setText(listLokasi.get(i).getNama_lokasi());
+        namaLokasiText.setText(listLokasi.get(i));
 
         return view;
     }

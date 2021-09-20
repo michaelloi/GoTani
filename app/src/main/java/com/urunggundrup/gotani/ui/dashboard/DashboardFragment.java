@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.urunggundrup.gotani.Add_Produk;
+import com.urunggundrup.gotani.AturProdukPenjualan;
 import com.urunggundrup.gotani.MainActivity;
 import com.urunggundrup.gotani.adapter.AdapterSpinnerLokasi;
 import com.urunggundrup.gotani.model.Model;
@@ -50,8 +52,7 @@ public class DashboardFragment extends Fragment {
     List<ModelLokasi> listLokasi = new ArrayList<>();
     List<String> listNamaLokasi = new ArrayList<>();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
@@ -170,12 +171,14 @@ public class DashboardFragment extends Fragment {
         spinnerLokasiRegister.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                slokasi = listLokasi.get(spinnerLokasiRegister.getSelectedItemPosition()).getId_lokasi();
+                if(spinnerLokasiRegister.getSelectedItemPosition()!=0){
+                    slokasi = listLokasi.get(spinnerLokasiRegister.getSelectedItemPosition()-1).getId_lokasi();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                slokasi = listLokasi.get(0).getId_lokasi();
+                slokasi = "";
             }
         });
 
@@ -253,6 +256,17 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+
+        //dashboard Petani
+        //pindah ke halaman atur produk penjualan
+        btnAturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToAturProdukPenjualan = new Intent(getActivity(), Add_Produk.class);
+                startActivity(goToAturProdukPenjualan);
+            }
+        });
+
 
         return root;
     }
@@ -349,7 +363,13 @@ public class DashboardFragment extends Fragment {
                 if(response.body().getValue().equalsIgnoreCase("1")){
                     listLokasi = response.body().getList_lokasi();
 
-                    adapterSpinnerLokasi = new AdapterSpinnerLokasi(getActivity().getApplicationContext(), listLokasi);
+                    listNamaLokasi.add("Pilih Lokasi Domisili");
+
+                    for(int i=0;i<listLokasi.size();i++){
+                        listNamaLokasi.add(listLokasi.get(i).getNama_lokasi());
+                    }
+
+                    adapterSpinnerLokasi = new AdapterSpinnerLokasi(getActivity().getApplicationContext(), listNamaLokasi);
                     spinnerLokasiRegister.setAdapter(adapterSpinnerLokasi);
                 }
             }

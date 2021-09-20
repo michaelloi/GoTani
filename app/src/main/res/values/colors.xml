@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="biru">#45C1C3</color>
+    <color name="birutua">#3DB2FF</color>
     <color name="hijau">#7AC36D</color>
     <color name="hijaucerah">#C2F784</color>
     <color name="hijautua">#66DE93</color>

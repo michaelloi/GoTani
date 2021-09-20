@@ -1,24 +1,545 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light"
+    android:padding="10dp"
     tools:context=".ui.home.HomeFragment" >
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
+        android:id="@+id/appBarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_white"
+            android:padding="10dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_search"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cari Disini"
+                android:textSize="16dp"
+                android:textStyle="italic"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ic_shopping_cart"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarHome"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"
+        app:cardCornerRadius="10dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/bg1"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rectangle_polos"/>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slider"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layoutBuahBuahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Buah - Buahan"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:textSize="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat Semua"
+                            android:gravity="center_vertical"
+                            android:textSize="12dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Apel"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 35.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Alpukat"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 25.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Jeruk"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 20.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSayurSayuran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sayur - Sayuran"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:textSize="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat Semua"
+                            android:gravity="center_vertical"
+                            android:textSize="12dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Sayur Kol"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 35.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Bayam"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 25.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Brokoli"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 20.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutBumbuDapur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bumbu Dapur"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:textSize="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat Semua"
+                            android:gravity="center_vertical"
+                            android:textSize="12dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Cabe Merah"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 35.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Tomat"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 25.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    app:cardCornerRadius="10dp"
+                                    android:layout_margin="6dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:padding="10dp">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="100dp"
+                                            app:srcCompat="@drawable/ic_image"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Bawang Merah"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rp 20.000/kg"
+                                            android:textSize="12dp"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Berastagi"
+                                            android:textStyle="italic"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>
