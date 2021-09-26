@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="6dp"
+    android:background="@color/white"
+    app:cardCornerRadius="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/judulAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Judul Alamat"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Penerima "
+                android:textSize="11dp"
+                android:layout_weight="0.6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="11dp"/>
+            <TextView
+                android:id="@+id/namaPenerima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Roby Pasaribu"
+                android:textSize="11dp"
+                android:layout_weight="0.4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No.Hp Penerima "
+                android:textSize="11dp"
+                android:layout_weight="0.6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="11dp"/>
+            <TextView
+                android:id="@+id/nohpPenerima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="081208120821"
+                android:textSize="11dp"
+                android:layout_weight="0.4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alamat Penerima "
+                android:textSize="11dp"
+                android:layout_weight="0.6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="11dp"/>
+            <TextView
+                android:id="@+id/alamatPenerima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jalan jalan ke ibu kota hahahahhahahhaha hahhahahahhahahahhaha"
+                android:textSize="11dp"
+                android:layout_weight="0.4"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

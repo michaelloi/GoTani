@@ -15,10 +15,16 @@
         android:theme="@style/Theme.GoTani"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Add_Alamat"
+            android:exported="true" />
+        <activity
+            android:name=".AturAlamatPengiriman"
+            android:exported="true"
+            android:label="@string/title_activity_atur_alamat_pengiriman" />
+        <activity
             android:name=".AturProdukPenjualan"
             android:exported="true"
-            android:label="@string/title_activity_atur_produk_penjualan"
-            android:theme="@style/Theme.GoTani.NoActionBar" />
+            android:label="@string/title_activity_atur_produk_penjualan"/>
         <activity
             android:name=".Add_Produk"
             android:exported="true"

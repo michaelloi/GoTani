@@ -33,7 +33,6 @@ public class PesananFragment extends Fragment {
 
     private FragmentPesananBinding binding;
     AdapterSpinnerStatusPesanan adapterSpinnerStatusPesanan;
-    Spinner spinnerStatusPesanan;
     String sStatusPesanan;
     List<ModelStatusPesanan> listStatusPesanan = new ArrayList<>();
     List<String> listNamaStatusPesanan = new ArrayList<>();
@@ -42,15 +41,13 @@ public class PesananFragment extends Fragment {
         binding = FragmentPesananBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        spinnerStatusPesanan = binding.pesananStatus;
-
         //Spinner Status Pesanan
         loadListStatusPesanan("");
-        spinnerStatusPesanan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.pesananStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(spinnerStatusPesanan.getSelectedItemPosition()!=0){
-                    sStatusPesanan = listStatusPesanan.get(spinnerStatusPesanan.getSelectedItemPosition()-1).getNama_status_pesanan();
+                if(binding.pesananStatus.getSelectedItemPosition()!=0){
+                    sStatusPesanan = listStatusPesanan.get(binding.pesananStatus.getSelectedItemPosition()-1).getNama_status_pesanan();
                 }
             }
 
@@ -85,7 +82,7 @@ public class PesananFragment extends Fragment {
                     }
 
                     adapterSpinnerStatusPesanan = new AdapterSpinnerStatusPesanan(getActivity().getApplicationContext(), listNamaStatusPesanan);
-                    spinnerStatusPesanan.setAdapter(adapterSpinnerStatusPesanan);
+                    binding.pesananStatus.setAdapter(adapterSpinnerStatusPesanan);
                 }
             }
 

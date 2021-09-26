@@ -38,4 +38,43 @@ public interface Register_Api {
     Call<Model> listStatusPesanan(
             @Field("iduser") String iduser
     );
+
+    @FormUrlEncoded
+    @POST("ListAlamatUser.php")
+    Call<Model> listAlamatUser(
+            @Field("iduser") String iduser,
+            @Field("status_alamat") String status_alamat
+    );
+
+    @FormUrlEncoded
+    @POST("Add_Alamat.php")
+    Call<Model> addAlamatUser(
+            @Field("id_user") String id_user,
+            @Field("judul_alamat") String judul_alamat,
+            @Field("alamat") String alamat,
+            @Field("nama_penerima") String nama_penerima,
+            @Field("nohp_penerima") String nohp_penerima,
+            @Field("status_alamat") String status_alamat
+    );
+
+    @FormUrlEncoded
+    @POST("ListNotifikasi.php")
+    Call<Model> listNotifikasi(
+            @Field("id_user") String iduser,
+            @Field("broadcast") String broadcast
+    );
+
+    @FormUrlEncoded
+    @POST("ListProdukPetani.php")
+    Call<Model> listProdukPetani(
+            @Field("idtoko") String iduser,
+            @Field("idkategori") String idkategori,
+            @Field("sortir") String sortir
+    );
+
+    @FormUrlEncoded
+    @POST("ListKategori.php")
+    Call<Model> listKategori(
+            @Field("iduser") String iduser
+    );
 }

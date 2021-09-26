@@ -31,10 +31,6 @@ public class Add_Produk extends AppCompatActivity {
 
         binding = ActivityAddProdukBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-
-
     }
 
     @Override

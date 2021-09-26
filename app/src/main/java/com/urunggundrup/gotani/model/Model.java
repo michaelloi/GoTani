@@ -7,6 +7,10 @@ public class Model {
     ModelUser user;
     List<ModelLokasi> list_lokasi;
     List<ModelStatusPesanan> list_status_pesanan;
+    List<ModelAlamatUser> list_alamat;
+    List<ModelNotifikasi> list_notifikasi;
+    List<ModelProdukPetani> list_produk_petani;
+    List<ModelKategori> list_kategori;
 
     public String getValue() {
         return value;
@@ -46,5 +50,37 @@ public class Model {
 
     public void setList_status_pesanan(List<ModelStatusPesanan> list_status_pesanan) {
         this.list_status_pesanan = list_status_pesanan;
+    }
+
+    public List<ModelAlamatUser> getList_alamat() {
+        return list_alamat;
+    }
+
+    public void setList_alamat(List<ModelAlamatUser> list_alamat) {
+        this.list_alamat = list_alamat;
+    }
+
+    public List<ModelNotifikasi> getList_notifikasi() {
+        return list_notifikasi;
+    }
+
+    public void setList_notifikasi(List<ModelNotifikasi> list_notifikasi) {
+        this.list_notifikasi = list_notifikasi;
+    }
+
+    public List<ModelProdukPetani> getList_produk_petani() {
+        return list_produk_petani;
+    }
+
+    public void setList_produk_petani(List<ModelProdukPetani> list_produk_petani) {
+        this.list_produk_petani = list_produk_petani;
+    }
+
+    public List<ModelKategori> getList_kategori() {
+        return list_kategori;
+    }
+
+    public void setList_kategori(List<ModelKategori> list_kategori) {
+        this.list_kategori = list_kategori;
     }
 }

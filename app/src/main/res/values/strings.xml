@@ -25,10 +25,14 @@
         <item>Berastagi</item>
     </string-array>
 
-    <string-array name="status_pesanan_arrays">
-        <item>Semua Status Pesanan</item>
-        <item>Pesanan Selesai</item>
-        <item>Berastagi</item>
+    <string-array name="urutkan_arrays">
+        <item>Urutkan Berdasarkan</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+        <item>Harga Terendah</item>
+        <item>Harga Tertinggi</item>
+        <item>Terbaru</item>
+        <item>Terlama</item>
     </string-array>
 
     <string name="title_activity_add_produk">Add_Produk</string>
@@ -36,4 +40,5 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_atur_produk_penjualan">AturProdukPenjualan</string>
+    <string name="title_activity_atur_alamat_pengiriman">AturAlamatPengiriman</string>
 </resources>

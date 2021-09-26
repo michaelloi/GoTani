@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -16,9 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.urunggundrup.gotani.Add_Produk;
+import com.urunggundrup.gotani.AturAlamatPengiriman;
 import com.urunggundrup.gotani.AturProdukPenjualan;
 import com.urunggundrup.gotani.MainActivity;
 import com.urunggundrup.gotani.adapter.AdapterSpinnerLokasi;
@@ -48,7 +47,6 @@ public class DashboardFragment extends Fragment {
     private ProgressDialog progress;
     String sId, sNama, sStatusLogin, sNamaToko;
     AdapterSpinnerLokasi adapterSpinnerLokasi;
-    Spinner spinnerLokasiRegister;
     List<ModelLokasi> listLokasi = new ArrayList<>();
     List<String> listNamaLokasi = new ArrayList<>();
 
@@ -57,40 +55,10 @@ public class DashboardFragment extends Fragment {
 
         View root = binding.getRoot();
 
-        //Login Page Element
-        LinearLayout linearLogin = binding.linearLoginDashboard;
-        EditText eUsernameLogin = binding.dashboardUsernameLogin;
-        EditText ePasswordLogin = binding.dashboardPasswordLogin;
-        LinearLayout btnLogin = binding.dashboardLoginButton;
-        TextView textToRegister = binding.dashboardRegisterText;
-
-        //Register Page Element
-        LinearLayout linearRegister = binding.linearRegisterDashboard;
-        EditText eNamaRegister = binding.dashboardNama;
-        EditText eNohpRegister = binding.dashboardNohp;
-        EditText eUsernameRegister = binding.dashboardUsername;
-        EditText ePasswordRegister = binding.dashboardPassword;
-        TextView textToLogin = binding.dashboardLoginText;
-        spinnerLokasiRegister = binding.dashboardLokasi;
-        LinearLayout btnPembeli = binding.dashboardPembeli;
-        LinearLayout btnPetani = binding.dashboardPetani;
-
-        //Simpan Nama Toko Page Element
-        LinearLayout linearSimpanNamaToko = binding.linearNamaTokoDashboard;
-        EditText eNamaToko = binding.dashboardNamaToko;
-        LinearLayout btnSimpanNamaToko = binding.dashboardSimpanNamaToko;
-
-        //Session Login Pembeli Element
-        LinearLayout linearSessionLoginPembeli = binding.dashboardSessionLogin;
-        TextView tNamaLoginPembeli = binding.namaSessionLoginPembeli;
-        LinearLayout btnAturAlamat = binding.alamatPengirimanSessionLoginPembeli;
-        LinearLayout btnLogutPembeli = binding.dashboardLogoutButton;
-
         //Session Login Petani Element
         LinearLayout linearSessionLoginPetani = binding.dashboardSessionLoginPetani;
         TextView namaToko = binding.namaToko;
         TextView namaPetani = binding.namaPetani;
-        LinearLayout btnAturProdukPenjualan = binding.aturProdukPenjualan;
         LinearLayout btnPesananMasuk = binding.pesananMasuk;
         LinearLayout btnPesananDalamPengiriman = binding.pesananDalamPengiriman;
         LinearLayout btnPesananSampai = binding.pesananSampai;
@@ -109,26 +77,35 @@ public class DashboardFragment extends Fragment {
         sNamaToko = user.get(SessionManager.USER_NAMA_TOKO);
 
         if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Pembeli")){
-            linearSessionLoginPembeli.setVisibility(View.VISIBLE);
+            binding.dashboardSessionLogin.setVisibility(View.VISIBLE);
             linearSessionLoginPetani.setVisibility(View.GONE);
-            linearLogin.setVisibility(View.GONE);
-            linearRegister.setVisibility(View.GONE);
-            linearSimpanNamaToko.setVisibility(View.GONE);
+            binding.linearLoginDashboard.setVisibility(View.GONE);
+            binding.linearRegisterDashboard.setVisibility(View.GONE);
+            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
 
             //Set Session Login Pembeli Element
-            tNamaLoginPembeli.setText("Hai "+sNama);
-            btnLogutPembeli.setOnClickListener(new View.OnClickListener() {
+            binding.namaSessionLoginPembeli.setText("Hai "+sNama);
+            binding.dashboardLogoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     sessionManager.logoutUser();
                 }
             });
+
+            binding.alamatPengirimanSessionLoginPembeli.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToAturAlamatPengiriman = new Intent(getActivity(), AturAlamatPengiriman.class);
+                    startActivity(goToAturAlamatPengiriman);
+                }
+            });
+
         }else if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Petani")){
             linearSessionLoginPetani.setVisibility(View.VISIBLE);
-            linearSessionLoginPembeli.setVisibility(View.GONE);
-            linearLogin.setVisibility(View.GONE);
-            linearRegister.setVisibility(View.GONE);
-            linearSimpanNamaToko.setVisibility(View.GONE);
+            binding.dashboardSessionLogin.setVisibility(View.GONE);
+            binding.linearLoginDashboard.setVisibility(View.GONE);
+            binding.linearRegisterDashboard.setVisibility(View.GONE);
+            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
 
             //Set Session Login Petani Element
             namaToko.setText(sNamaToko);
@@ -141,38 +118,38 @@ public class DashboardFragment extends Fragment {
             });
 
         }else{
-            linearLogin.setVisibility(View.VISIBLE);
-            linearRegister.setVisibility(View.GONE);
-            linearSimpanNamaToko.setVisibility(View.GONE);
+            binding.linearLoginDashboard.setVisibility(View.VISIBLE);
+            binding.linearRegisterDashboard.setVisibility(View.GONE);
+            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
             linearSessionLoginPetani.setVisibility(View.GONE);
-            linearSessionLoginPembeli.setVisibility(View.GONE);
+            binding.dashboardSessionLogin.setVisibility(View.GONE);
         }
 
         //Register to Login
-        textToLogin.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardLoginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLogin.setVisibility(View.VISIBLE);
-                linearRegister.setVisibility(View.GONE);
+                binding.linearLoginDashboard.setVisibility(View.VISIBLE);
+                binding.linearRegisterDashboard.setVisibility(View.GONE);
             }
         });
 
         //Login to Register
-        textToRegister.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardRegisterText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearRegister.setVisibility(View.VISIBLE);
-                linearLogin.setVisibility(View.GONE);
+                binding.linearRegisterDashboard.setVisibility(View.VISIBLE);
+                binding.linearLoginDashboard.setVisibility(View.GONE);
             }
         });
 
         //Spinner Register Lokasi
         loadListLokasi("");
-        spinnerLokasiRegister.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.dashboardLokasi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(spinnerLokasiRegister.getSelectedItemPosition()!=0){
-                    slokasi = listLokasi.get(spinnerLokasiRegister.getSelectedItemPosition()-1).getId_lokasi();
+                if(binding.dashboardLokasi.getSelectedItemPosition()!=0){
+                    slokasi = listLokasi.get(binding.dashboardLokasi.getSelectedItemPosition()-1).getId_lokasi();
                 }
             }
 
@@ -183,90 +160,89 @@ public class DashboardFragment extends Fragment {
         });
 
         //Register sebagai Pembeli
-        btnPembeli.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardPembeli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sStatus="Pembeli";
 
-                if(eNamaRegister.getText().length()==0){
-                    eNamaRegister.setError("Nama harus di isi");
-                }else if(eNohpRegister.getText().length()==0){
-                    eNohpRegister.setError("Nomor Handphone harus di isi");
-                }else if(eUsernameRegister.getText().length()==0){
-                    eUsernameRegister.setError("Nama Pengguna / Username harus di isi");
-                }else if(ePasswordRegister.getText().length()==0){
-                    ePasswordRegister.setError("Password harus di isi");
+                if(binding.dashboardNama.getText().length()==0){
+                    binding.dashboardNama.setError("Nama harus di isi");
+                }else if(binding.dashboardNohp.getText().length()==0){
+                    binding.dashboardNohp.setError("Nomor Handphone harus di isi");
+                }else if(binding.dashboardUsername.getText().length()==0){
+                    binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
+                }else if(binding.dashboardPassword.getText().length()==0){
+                    binding.dashboardPassword.setError("Password harus di isi");
                 }else if(slokasi.isEmpty()) {
                     Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
                 }else{
-                    registerPengguna(eNamaRegister.getText().toString(), eNohpRegister.getText().toString(), eUsernameRegister.getText().toString(), ePasswordRegister.getText().toString(), slokasi, sStatus,"");
+                    registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,"");
                 }
             }
         });
 
         //Register sebaai Petani
-        btnPetani.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardPetani.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sStatus="Petani";
 
-                if(eNamaRegister.getText().length()==0){
-                    eNamaRegister.setError("Nama harus di isi");
-                }else if(eNohpRegister.getText().length()==0){
-                    eNohpRegister.setError("Nomor Handphone harus di isi");
-                }else if(eUsernameRegister.getText().length()==0){
-                    eUsernameRegister.setError("Nama Pengguna / Username harus di isi");
-                }else if(ePasswordRegister.getText().length()==0){
-                    ePasswordRegister.setError("Password harus di isi");
+                if(binding.dashboardNama.getText().length()==0){
+                    binding.dashboardNama.setError("Nama harus di isi");
+                }else if(binding.dashboardNohp.getText().length()==0){
+                    binding.dashboardNohp.setError("Nomor Handphone harus di isi");
+                }else if(binding.dashboardUsername.getText().length()==0){
+                    binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
+                }else if(binding.dashboardPassword.getText().length()==0){
+                    binding.dashboardPassword.setError("Password harus di isi");
                 }else if(slokasi.isEmpty()) {
                     Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
                 }else{
-                    linearSimpanNamaToko.setVisibility(View.VISIBLE);
-                    linearLogin.setVisibility(View.GONE);
-                    linearRegister.setVisibility(View.GONE);
+                    binding.linearNamaTokoDashboard.setVisibility(View.VISIBLE);
+                    binding.linearLoginDashboard.setVisibility(View.GONE);
+                    binding.linearRegisterDashboard.setVisibility(View.GONE);
                     linearSessionLoginPetani.setVisibility(View.GONE);
-                    linearSessionLoginPembeli.setVisibility(View.GONE);
+                    binding.dashboardSessionLogin.setVisibility(View.GONE);
                 }
             }
         });
 
         //Simpan Nama Toko
-        btnSimpanNamaToko.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardSimpanNamaToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(eNamaToko.getText().length()==0){
-                    eNamaToko.setError("Nama Toko harus di isi");
+                if(binding.dashboardNamaToko.getText().length()==0){
+                    binding.dashboardNamaToko.setError("Nama Toko harus di isi");
                 }else{
-                    registerPengguna(eNamaRegister.getText().toString(), eNohpRegister.getText().toString(), eUsernameRegister.getText().toString(), ePasswordRegister.getText().toString(), slokasi, sStatus,eNamaToko.getText().toString());
+                    registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,binding.dashboardNamaToko.getText().toString());
                 }
             }
         });
 
 
         //Login proses
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.dashboardLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(eUsernameLogin.getText().length()==0){
-                    eUsernameLogin.setError("Username harus di isi");
-                }else if(ePasswordLogin.getText().length()==0){
-                    ePasswordLogin.setError("Password harus di isi");
+                if(binding.dashboardUsernameLogin.getText().length()==0){
+                    binding.dashboardUsernameLogin.setError("Username harus di isi");
+                }else if(binding.dashboardPasswordLogin.getText().length()==0){
+                    binding.dashboardPasswordLogin.setError("Password harus di isi");
                 }else{
-                    loginPengguna(eUsernameLogin.getText().toString(), ePasswordLogin.getText().toString());
+                    loginPengguna(binding.dashboardUsernameLogin.getText().toString(), binding.dashboardPasswordLogin.getText().toString());
                 }
             }
         });
 
         //dashboard Petani
         //pindah ke halaman atur produk penjualan
-        btnAturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
+        binding.aturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToAturProdukPenjualan = new Intent(getActivity(), Add_Produk.class);
+                Intent goToAturProdukPenjualan = new Intent(getActivity(), AturProdukPenjualan.class);
                 startActivity(goToAturProdukPenjualan);
             }
         });
-
 
         return root;
     }
@@ -370,7 +346,7 @@ public class DashboardFragment extends Fragment {
                     }
 
                     adapterSpinnerLokasi = new AdapterSpinnerLokasi(getActivity().getApplicationContext(), listNamaLokasi);
-                    spinnerLokasiRegister.setAdapter(adapterSpinnerLokasi);
+                    binding.dashboardLokasi.setAdapter(adapterSpinnerLokasi);
                 }
             }
 
