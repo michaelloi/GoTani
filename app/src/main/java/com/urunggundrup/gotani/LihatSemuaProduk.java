@@ -1,10 +1,11 @@
 package com.urunggundrup.gotani;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.urunggundrup.gotani.adapter.AdapterNotifikasi;
-import com.urunggundrup.gotani.adapter.AdapterProdukUserHorizontal;
 import com.urunggundrup.gotani.adapter.AdapterProdukUserVertical;
-import com.urunggundrup.gotani.databinding.ActivityAturProdukPenjualanBinding;
 import com.urunggundrup.gotani.databinding.ActivityLihatSemuaProdukBinding;
 import com.urunggundrup.gotani.model.Model;
 import com.urunggundrup.gotani.model.ModelProdukUser;
@@ -47,7 +44,6 @@ public class LihatSemuaProduk extends AppCompatActivity implements SearchView.On
         binding = ActivityLihatSemuaProdukBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         //get list produk buah
         loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
         adapterProdukUserVertical = new AdapterProdukUserVertical(LihatSemuaProduk.this, listProduk);
@@ -55,7 +51,17 @@ public class LihatSemuaProduk extends AppCompatActivity implements SearchView.On
         binding.recyclerProdukUser.setLayoutManager(layoutManager);
         binding.recyclerProdukUser.setItemAnimator(new DefaultItemAnimator());
         binding.recyclerProdukUser.setAdapter(adapterProdukUserVertical);
-        //
+
+        //swipe refresh action
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //get list produk buah
+                loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
+                binding.swipeRefresh.setRefreshing(false);
+            }
+        });
+
     }
 
     @Override

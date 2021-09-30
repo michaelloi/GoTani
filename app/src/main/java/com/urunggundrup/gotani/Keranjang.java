@@ -22,6 +22,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +37,8 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
     String sId="";
     AdapterKeranjang adapterKeranjang;
     List<ModelKeranjang> listKeranjang = new ArrayList<>();
+    List<String> listIdKeranjang;
+    Integer jumlahToko, hargaItemPesanan, hargaTotalItemPesanan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,17 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
         binding.recyclerKeranjang.setItemAnimator(new DefaultItemAnimator());
         binding.recyclerKeranjang.setAdapter(adapterKeranjang);
 
+        //go to AlamatCheckout
+        binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToAlamatCheckout = new Intent(Keranjang.this, AlamatCheckout.class);
+                goToAlamatCheckout.putExtra("listIdKeranjang", listIdKeranjang.toString());
+                goToAlamatCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
+                goToAlamatCheckout.putExtra("hargaPesanan", String.valueOf(hargaTotalItemPesanan));
+                startActivity(goToAlamatCheckout);
+            }
+        });
     }
 
     @Override
@@ -105,14 +119,18 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
                     if(listKeranjang.size()<1){
                         binding.pesanMaaf.setVisibility(View.VISIBLE);
                         binding.recyclerKeranjang.setVisibility(View.GONE);
+                        binding.bottom.setVisibility(View.GONE);
                     }else{
                         binding.pesanMaaf.setVisibility(View.GONE);
                         binding.recyclerKeranjang.setVisibility(View.VISIBLE);
                         adapterKeranjang = new AdapterKeranjang(Keranjang.this, listKeranjang, Keranjang.this);
                         binding.recyclerKeranjang.setAdapter(adapterKeranjang);
                         getListChange(listKeranjang);
+                        getJumlahToko(listKeranjang);
+                        binding.bottom.setVisibility(View.VISIBLE);
                     }
                 }else{
+                    binding.bottom.setVisibility(View.GONE);
                     binding.pesanProgress.setVisibility(View.GONE);
                     binding.recyclerKeranjang.setVisibility(View.GONE);
                     binding.pesanMaaf.setVisibility(View.VISIBLE);
@@ -125,6 +143,7 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
                 binding.pesanProgress.setVisibility(View.GONE);
                 binding.recyclerKeranjang.setVisibility(View.GONE);
                 binding.pesanMaaf.setVisibility(View.GONE);
+                binding.bottom.setVisibility(View.GONE);
                 Toast.makeText(Keranjang.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -132,15 +151,17 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
 
     @Override
     public void getListChange(List<ModelKeranjang> listKeranjangCheckout) {
-        Integer hargaItemPesanan=0;
-        Integer hargaTotalItemPesanan=0;
+        hargaItemPesanan=0;
+        hargaTotalItemPesanan=0;
+        listIdKeranjang=new ArrayList<>();
 
         for(int i=0; i<listKeranjangCheckout.size();i++){
             hargaItemPesanan = Integer.valueOf(listKeranjangCheckout.get(i).getHarga_produk()) * Integer.valueOf(listKeranjangCheckout.get(i).getJumlah_pesanan());
             hargaTotalItemPesanan += hargaItemPesanan;
+            listIdKeranjang.add(listKeranjangCheckout.get(i).getId_keranjang());
         }
 
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp ");
         formatRp.setMonetaryDecimalSeparator(',');
@@ -149,5 +170,25 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
 
         binding.totalHarga.setText(kursIndonesia.format(hargaTotalItemPesanan));
 
+        if(listKeranjangCheckout.size()==0){
+            binding.bottom.setVisibility(View.GONE);
+        }else{
+            binding.bottom.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void getJumlahToko(List<ModelKeranjang> listKeranjangCheckout) {
+        List<String> listIdToko = new ArrayList<>();
+        jumlahToko=1;
+
+        for(int i=0; i<listKeranjangCheckout.size();i++){
+            if(i>0){
+                if(!listIdToko.contains(listKeranjangCheckout.get(i).getId_toko())){
+                    jumlahToko++;
+                }
+            }
+            listIdToko.add(listKeranjangCheckout.get(i).getId_toko());
+        }
     }
 }

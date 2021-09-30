@@ -8,6 +8,9 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Win10 on 27/09/2016.
  */public class MarshMallowPermission {
@@ -71,4 +74,6 @@ import androidx.core.content.ContextCompat;
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_REQUEST_CODE);
         }
     }
+
+
 }

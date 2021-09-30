@@ -1,7 +1,10 @@
 package com.urunggundrup.gotani.model;
 
-public class ModelAlamatUser {
+import java.io.Serializable;
+
+public class ModelAlamatUser implements Serializable {
     private String id_alamat, id_user, judul_alamat, alamat, nama_penerima, nohp_penerima, created_date, status_alamat;
+    Boolean isSelected;
 
     public String getId_alamat() {
         return id_alamat;
@@ -65,5 +68,13 @@ public class ModelAlamatUser {
 
     public void setStatus_alamat(String status_alamat) {
         this.status_alamat = status_alamat;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
     }
 }

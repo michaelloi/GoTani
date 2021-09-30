@@ -17,6 +17,7 @@ import com.urunggundrup.gotani.model.Model;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +54,7 @@ public class DetailProdukUser extends AppCompatActivity {
         Picasso.with(binding.fotoProduk.getContext()).load(getResources().getString(R.string.urlaccesdocuments)+getDataIntent.getStringExtra("foto_produk")).into(binding.fotoProduk);
         binding.namaProduk.setText(getDataIntent.getStringExtra("nama_produk"));
 
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp ");
         formatRp.setMonetaryDecimalSeparator(',');

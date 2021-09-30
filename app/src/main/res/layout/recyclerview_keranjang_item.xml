@@ -8,80 +8,103 @@
     android:layout_margin="6dp"
     android:background="@color/white"
     app:cardCornerRadius="10dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/fotoProduk"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/ic_image"
-            android:layout_gravity="center_vertical"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:paddingLeft="10dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/namaProduk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama Produk"
-                android:textStyle="bold"
-                android:textSize="14dp"/>
+            <ImageView
+                android:id="@+id/fotoProduk"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_image"
+                android:layout_gravity="center_vertical"/>
 
-            <TextView
-                android:id="@+id/jumlahPesanan"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2 kg"
-                android:textSize="12dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:paddingLeft="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/hargaProduk"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/namaProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Produk"
+                    android:textStyle="bold"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/jumlahPesanan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2 kg"
+                    android:textSize="12dp"/>
+
+                <TextView
+                    android:id="@+id/hargaProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 30.000 / kg"
+                    android:textSize="12dp"/>
+                <TextView
+                    android:id="@+id/hargaProdukDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 30.000 / kg"
+                    android:textSize="10dp"
+                    android:textStyle="italic"/>
+                <TextView
+                    android:id="@+id/namaToko"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Toko Roby"
+                    android:textSize="10dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rp 30.000 / kg"
-                android:textSize="12dp"/>
-            <TextView
-                android:id="@+id/hargaProdukDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rp 30.000 / kg"
-                android:textSize="10dp"
-                android:textStyle="italic"/>
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:checked="true"
+                    android:layout_marginTop="20dp"/>
+                <TextView
+                    android:id="@+id/ubah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ubah"
+                    android:textColor="@color/biru"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/deleteItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical">
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:checked="true"/>
-            <TextView
-                android:id="@+id/ubah"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ubah"
-                android:textColor="@color/biru"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:textSize="12dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-    </LinearLayout>
+            app:srcCompat="@drawable/ic_close_white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

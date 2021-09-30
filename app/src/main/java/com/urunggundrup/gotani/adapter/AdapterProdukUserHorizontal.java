@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterProdukUserHorizontal extends RecyclerView.Adapter<AdapterProdukUserHorizontal.ViewHolder> {
     Context context;
@@ -45,7 +46,7 @@ public class AdapterProdukUserHorizontal extends RecyclerView.Adapter<AdapterPro
         Picasso.with(holder.fotoProduk.getContext()).load(holder.urlFoto+modelProdukUser.getFoto_produk()).into(holder.fotoProduk);
         holder.namaProduk.setText(modelProdukUser.getNama_produk());
 
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp ");
         formatRp.setMonetaryDecimalSeparator(',');

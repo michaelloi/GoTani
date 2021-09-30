@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetani.ViewHolder> {
     Context context;
@@ -42,7 +43,7 @@ public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetan
         Picasso.with(holder.fotoProduk.getContext()).load(holder.urlFoto+modelProdukPetani.getFoto_produk()).into(holder.fotoProduk);
         holder.namaProduk.setText(modelProdukPetani.getNama_produk());
 
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
         formatRp.setCurrencySymbol("Rp ");
         formatRp.setMonetaryDecimalSeparator(',');
