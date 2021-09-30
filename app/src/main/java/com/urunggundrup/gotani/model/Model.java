@@ -11,6 +11,8 @@ public class Model {
     List<ModelNotifikasi> list_notifikasi;
     List<ModelProdukPetani> list_produk_petani;
     List<ModelKategori> list_kategori;
+    List<ModelProdukUser> list_produk_user;
+    List<ModelKeranjang> list_keranjang;
 
     public String getValue() {
         return value;
@@ -82,5 +84,21 @@ public class Model {
 
     public void setList_kategori(List<ModelKategori> list_kategori) {
         this.list_kategori = list_kategori;
+    }
+
+    public List<ModelProdukUser> getList_produk_user() {
+        return list_produk_user;
+    }
+
+    public void setList_produk_user(List<ModelProdukUser> list_produk_user) {
+        this.list_produk_user = list_produk_user;
+    }
+
+    public List<ModelKeranjang> getList_keranjang() {
+        return list_keranjang;
+    }
+
+    public void setList_keranjang(List<ModelKeranjang> list_keranjang) {
+        this.list_keranjang = list_keranjang;
     }
 }

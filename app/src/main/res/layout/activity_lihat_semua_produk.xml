@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AturAlamatPengiriman"
+    tools:context=".LihatSemuaProduk"
     android:padding="10dp"
     android:background="@color/light">
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerAlamat"
+            android:id="@+id/recyclerProdukUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Maaf, tidak ada alamat yang terdaftar."
+            android:text="Maaf, tidak ada produk."
             android:textSize="14dp"
             android:layout_marginTop="10dp"
             android:gravity="center"/>
@@ -54,12 +54,4 @@
             android:text="Tunggu sebentar..."/>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_putih"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
 </RelativeLayout>

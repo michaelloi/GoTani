@@ -20,7 +20,7 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/tambahgerejagambar"
+                android:id="@+id/fotoProduk"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@drawable/rectangle_grey"
@@ -52,7 +52,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <EditText
-                    android:id="@+id/addNamaProduk"
+                    android:id="@+id/namaProduk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -77,7 +77,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <EditText
-                    android:id="@+id/addHargaProduk"
+                    android:id="@+id/hargaProduk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -102,7 +102,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <Spinner
-                    android:id="@+id/addSatuanProduk"
+                    android:id="@+id/spinnerSatuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -122,13 +122,13 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <Spinner
-                    android:id="@+id/addKategoriProduk"
+                    android:id="@+id/spinnerKategori"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/addSimpanProduk"
+                android:id="@+id/simpanProduk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

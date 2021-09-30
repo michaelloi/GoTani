@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AturProdukPenjualan"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/light">
 
     <LinearLayout
         android:id="@+id/linearSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_margin="6dp">
+        android:layout_alignParentTop="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginRight="5dp">
+            android:layout_margin="6dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="5dp">
+            android:layout_margin="6dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -12,6 +12,7 @@
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_farmers.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_image.xml" value="0.165625" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_search.xml" value="0.165625" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/ic_search_white.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.165625" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_user_2.xml" value="0.2203125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rectangle_grey.xml" value="0.22" />
@@ -23,25 +24,33 @@
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_merah.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_orange.xml" value="0.165625" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_ungu.xml" value="0.165625" />
-        <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_white.xml" value="0.1125" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_white.xml" value="0.21" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_white_border_grey.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_add_alamat.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_add_produk.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_alamat_pengiriman.xml" value="0.18" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_produk_penjualan.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_detail_produk_user.xml" value="0.25" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_keranjang.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_lihat_semua_produk.xml" value="0.13958333333333334" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.13405797101449277" />
         <entry key="..\:/GoTani/app/src/main/res/layout/content_add_produk.xml" value="0.14990942028985507" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
-        <entry key="..\:/GoTani/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_pesanan.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_alamat_item.xml" value="0.2" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_keranjang_item.xml" value="0.25" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_lihat_semua_produk_user_item.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_notifikasi_item.xml" value="0.21" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_pesanan_item.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_produk_petani_item.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_produk_user_item.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/spinner_item.xml" value="0.13" />
         <entry key="..\:/GoTani/app/src/main/res/layout/spinner_kategori_item.xml" value="0.11875" />
         <entry key="..\:/GoTani/app/src/main/res/menu/bottom_nav_menu.xml" value="0.12395833333333334" />
+        <entry key="..\:/GoTani/app/src/main/res/menu/menu_search.xml" value="0.20520833333333333" />
         <entry key="..\:/Gundrup/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/Gundrup/Resource GoTani/apps/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.10461956521739131" />
         <entry key="..\:/data24Sept2018/Android/sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.15534420289855072" />

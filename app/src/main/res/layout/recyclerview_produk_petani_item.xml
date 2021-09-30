@@ -42,19 +42,19 @@
                 android:textSize="12dp"/>
 
             <TextView
-                android:id="@+id/tanggalProduk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="29 September 2021"
-                android:textSize="10dp"/>
-
-            <TextView
                 android:id="@+id/kategoriProduk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Buah - Buahan"
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/tanggalProduk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="29 September 2021"
                 android:textSize="10dp"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:gravity="right"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -16,6 +16,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.urunggundrup.gotani.adapter.AdapterAlamatUser;
@@ -67,7 +70,7 @@ public class AturProdukPenjualan extends AppCompatActivity {
         //membaca session aplikasi
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        sId = user.get(SessionManager.USER_ID_TOKO);
 
         //spinner kategori produk
         loadListKategoriProduk("");
@@ -79,6 +82,7 @@ public class AturProdukPenjualan extends AppCompatActivity {
                     loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
                 }else{
                     sKategoriProduk = "0";
+                    loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
                 }
             }
 
@@ -117,7 +121,20 @@ public class AturProdukPenjualan extends AppCompatActivity {
             }
         });
 
+        //set data list alamat to recyclerview
+        adapterProdukPetani = new AdapterProdukPetani(AturProdukPenjualan.this, listProdukPetani);
+        RecyclerView.LayoutManager produkPertanianLayout = new GridLayoutManager(getApplicationContext(), 1);
+        binding.recyclerProdukPetani.setLayoutManager(produkPertanianLayout);
+        binding.recyclerProdukPetani.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerProdukPetani.setAdapter(adapterProdukPetani);
 
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToAddProduk = new Intent(AturProdukPenjualan.this, Add_Produk.class);
+                startActivity(goToAddProduk);
+            }
+        });
 
     }
 

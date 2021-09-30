@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardViewProduk"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="6dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/fotoProduk"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_image"/>
+        <TextView
+            android:id="@+id/namaProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apel"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/hargaProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rp 35.000/kg"
+            android:textSize="11dp"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/lokasiProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Berastagi"
+            android:textStyle="italic"
+            android:maxLines="1"
+            android:textSize="10dp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -59,7 +59,7 @@ public class SessionManager {
         user.put(USER_NOHP, pref.getString(USER_NOHP, null));
         user.put(USER_LOKASI, pref.getString(USER_LOKASI, null));
         user.put(USER_STATUS, pref.getString(USER_STATUS, null));
-        user.put(USER_ID_TOKO, pref.getString(USER_STATUS, null));
+        user.put(USER_ID_TOKO, pref.getString(USER_ID_TOKO, null));
         user.put(USER_NAMA_TOKO, pref.getString(USER_NAMA_TOKO, null));
         user.put(USER_CREATED_DATE, pref.getString(USER_CREATED_DATE, null));
         return user;

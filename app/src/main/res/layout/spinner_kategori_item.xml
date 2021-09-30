@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:background="@color/white">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/textSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="11dp"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>
 

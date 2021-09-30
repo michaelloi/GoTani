@@ -28,6 +28,25 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("Add_Alamat.php")
+    Call<Model> addAlamatUser(
+            @Field("id_user") String id_user,
+            @Field("judul_alamat") String judul_alamat,
+            @Field("alamat") String alamat,
+            @Field("nama_penerima") String nama_penerima,
+            @Field("nohp_penerima") String nohp_penerima,
+            @Field("status_alamat") String status_alamat
+    );
+
+    @FormUrlEncoded
+    @POST("Add_Keranjang.php")
+    Call<Model> addKeranjang(
+            @Field("id_produk") String id_produk,
+            @Field("id_user") String id_user,
+            @Field("jumlah_pesanan") String jumlah_pesanan
+    );
+
+    @FormUrlEncoded
     @POST("ListLokasi.php")
     Call<Model> listLokasi(
             @Field("iduser") String iduser
@@ -47,17 +66,6 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
-    @POST("Add_Alamat.php")
-    Call<Model> addAlamatUser(
-            @Field("id_user") String id_user,
-            @Field("judul_alamat") String judul_alamat,
-            @Field("alamat") String alamat,
-            @Field("nama_penerima") String nama_penerima,
-            @Field("nohp_penerima") String nohp_penerima,
-            @Field("status_alamat") String status_alamat
-    );
-
-    @FormUrlEncoded
     @POST("ListNotifikasi.php")
     Call<Model> listNotifikasi(
             @Field("id_user") String iduser,
@@ -67,7 +75,7 @@ public interface Register_Api {
     @FormUrlEncoded
     @POST("ListProdukPetani.php")
     Call<Model> listProdukPetani(
-            @Field("idtoko") String iduser,
+            @Field("idtoko") String idtoko,
             @Field("idkategori") String idkategori,
             @Field("sortir") String sortir
     );
@@ -76,5 +84,25 @@ public interface Register_Api {
     @POST("ListKategori.php")
     Call<Model> listKategori(
             @Field("iduser") String iduser
+    );
+
+    @FormUrlEncoded
+    @POST("ListProdukUserLimit.php")
+    Call<Model> listProdukUserLimit(
+            @Field("idkategori") String idkategori,
+            @Field("sortir") String sortir
+    );
+
+    @FormUrlEncoded
+    @POST("ListProdukUser.php")
+    Call<Model> listProdukUser(
+            @Field("idkategori") String idkategori,
+            @Field("sortir") String sortir
+    );
+
+    @FormUrlEncoded
+    @POST("List_Keranjang_User.php")
+    Call<Model> listKeranjang(
+            @Field("id_user") String id_user
     );
 }
