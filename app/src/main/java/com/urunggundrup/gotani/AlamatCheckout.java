@@ -39,8 +39,10 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
     String sId;
     AdapterAlamatCheckout adapterAlamatCheckout;
     List<ModelAlamatUser> listAlamatUser = new ArrayList<>();
-    String idAlamatChecked;
+    String idAlamatChecked, judulAlamatChecked, namaPenerimaChecked, nohpPenerimaChecked, alamatPenerimaChecked;
     Intent getDataKeranjang;
+    String listIdKeranjang, jumlahToko, hargaPesanan;
+    Integer hargaOngkir, hargaPesananTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
         sId = user.get(SessionManager.USER_ID);
+        listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
+        jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
+        hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
 
         //request data list alamat
         loadListAlamat(sId, "Aktif");
@@ -67,6 +72,7 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
             public void onRefresh() {
                 loadListAlamat(sId, "Aktif");
                 binding.swipeRefresh.setRefreshing(false);
+                binding.bottom.setVisibility(View.GONE);
             }
         });
 
@@ -77,7 +83,23 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
         binding.recyclerAlamat.setItemAnimator(new DefaultItemAnimator());
         binding.recyclerAlamat.setAdapter(adapterAlamatCheckout);
 
-
+        binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToCheckout = new Intent(AlamatCheckout.this, CheckOut.class);
+                goToCheckout.putExtra("listIdKeranjang", listIdKeranjang);
+                goToCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
+                goToCheckout.putExtra("hargaPesanan", String.valueOf(hargaPesanan));
+                goToCheckout.putExtra("hargaOngkir", String.valueOf(hargaOngkir));
+                goToCheckout.putExtra("hargaPesananTotal", String.valueOf(hargaPesananTotal));
+                goToCheckout.putExtra("idAlamat", idAlamatChecked);
+                goToCheckout.putExtra("judulAlamatChecked", judulAlamatChecked);
+                goToCheckout.putExtra("namaPenerimaChecked", namaPenerimaChecked);
+                goToCheckout.putExtra("nohpPenerimaChecked", nohpPenerimaChecked);
+                goToCheckout.putExtra("alamatPenerimaChecked", alamatPenerimaChecked);
+                startActivity(goToCheckout);
+            }
+        });
     }
 
     @Override
@@ -139,6 +161,11 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
     public void getIdAlamat(Integer position) {
         idAlamatChecked="";
         idAlamatChecked = listAlamatUser.get(position).getId_alamat();
+        judulAlamatChecked = listAlamatUser.get(position).getJudul_alamat();
+        namaPenerimaChecked = listAlamatUser.get(position).getNama_penerima();
+        nohpPenerimaChecked = listAlamatUser.get(position).getNohp_penerima();
+        alamatPenerimaChecked = listAlamatUser.get(position).getAlamat();
+
 
         if(idAlamatChecked==null){
             binding.bottom.setVisibility(View.GONE);
@@ -153,11 +180,11 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
         formatRp.setGroupingSeparator('.');
         kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-        Integer hargaOngkir = Integer.valueOf(getDataKeranjang.getStringExtra("jumlahToko")) * 10000;
-        Integer hargaPesananTotal = Integer.valueOf(getDataKeranjang.getStringExtra("hargaPesanan")) + hargaOngkir;
+        hargaOngkir = Integer.valueOf(jumlahToko) * 10000;
+        hargaPesananTotal = Integer.valueOf(hargaPesanan) + hargaOngkir;
         String sHargaPesanan = kursIndonesia.format(hargaPesananTotal);
 
-        binding.ongkir.setText("(Rp 10.000 x "+getDataKeranjang.getStringExtra("jumlahToko")+")");
+        binding.ongkir.setText("(Rp 10.000 x "+jumlahToko+")");
         binding.totalHarga.setText(sHargaPesanan);
     }
 }

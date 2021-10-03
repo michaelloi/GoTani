@@ -56,7 +56,6 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.View
     public AdapterKeranjang.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_keranjang_item, parent, false);
         AdapterKeranjang.ViewHolder holder = new AdapterKeranjang.ViewHolder(v);
-        holder.setIsRecyclable(false);
         return holder;
     }
 

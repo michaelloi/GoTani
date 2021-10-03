@@ -39,6 +39,19 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("Add_Pesanan.php")
+    Call<Model> addPesanan(
+            @Field("id_user") String id_user,
+            @Field("id_status_pesanan") String id_status_pesanan,
+            @Field("id_alamat") String id_alamat,
+            @Field("id_rekening_pembayaran") String id_rekening_pembayaran,
+            @Field("list_id_keranjang") String list_id_keranjang,
+            @Field("harga_pesanan") String harga_pesanan,
+            @Field("harga_ongkir") String harga_ongkir,
+            @Field("total_pembayaran") String total_pembayaran
+    );
+
+    @FormUrlEncoded
     @POST("Add_Keranjang.php")
     Call<Model> addKeranjang(
             @Field("id_produk") String id_produk,
@@ -117,5 +130,17 @@ public interface Register_Api {
     @POST("List_Keranjang_User.php")
     Call<Model> listKeranjang(
             @Field("id_user") String id_user
+    );
+
+    @FormUrlEncoded
+    @POST("List_Keranjang_User_Checkout.php")
+    Call<Model> listKeranjangCheckout(
+            @Field("listIdKeranjang") String listIdKeranjang
+    );
+
+    @FormUrlEncoded
+    @POST("ListRekening.php")
+    Call<Model> listRekening(
+            @Field("idUser") String idUser
     );
 }

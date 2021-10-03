@@ -13,6 +13,7 @@ public class Model {
     List<ModelKategori> list_kategori;
     List<ModelProdukUser> list_produk_user;
     List<ModelKeranjang> list_keranjang;
+    List<ModelRekening> list_rekening;
 
     public String getValue() {
         return value;
@@ -100,5 +101,13 @@ public class Model {
 
     public void setList_keranjang(List<ModelKeranjang> list_keranjang) {
         this.list_keranjang = list_keranjang;
+    }
+
+    public List<ModelRekening> getList_rekening() {
+        return list_rekening;
+    }
+
+    public void setList_rekening(List<ModelRekening> list_rekening) {
+        this.list_rekening = list_rekening;
     }
 }
