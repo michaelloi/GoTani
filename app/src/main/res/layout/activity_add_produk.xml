@@ -48,7 +48,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <EditText
@@ -57,8 +57,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="Nama Produk"
-                    android:inputType="textPassword"
-                    android:maxLength="8"
+                    android:inputType="textPersonName"
                     android:textSize="14dp"/>
             </LinearLayout>
 
@@ -73,7 +72,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <EditText
@@ -98,7 +97,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <Spinner
@@ -118,7 +117,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rectangle_grey">
                 <Spinner

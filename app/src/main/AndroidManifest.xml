@@ -17,6 +17,9 @@
         android:theme="@style/Theme.GoTani"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".KonfirmasiPembayaran"
+            android:exported="true" />
+        <activity
             android:name=".CheckOut"
             android:exported="true" />
         <activity

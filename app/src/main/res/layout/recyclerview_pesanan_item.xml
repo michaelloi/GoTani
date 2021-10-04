@@ -27,28 +27,28 @@
                 android:orientation="vertical"
                 android:layout_weight="0.4">
                 <TextView
+                    android:id="@+id/nomorOrderan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="No. Order : GOTANI2609202100001"
                     android:textStyle="bold"
                     android:textSize="13dp"/>
                 <TextView
+                    android:id="@+id/totalBelanja"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Total Belanja : Rp 100.000"
-                    android:textSize="12dp"/>
+                    android:textSize="11dp"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/diprosesTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone">
+                android:layout_weight="0.6">
 
                 <LinearLayout
+                    android:id="@+id/tagLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -59,153 +59,11 @@
                     android:layout_gravity="right"
                     android:background="@drawable/rounded_ungu">
                     <TextView
+                        android:id="@+id/statusPesanan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Di Proses"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/selesaiTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_hijau">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Selesai"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/batalTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_merah">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Batal"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menungguPembayaranTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:layout_gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_kuning">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Menunggu Pembayaran"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/dikirimTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_orange">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di Kirim"
-                        android:textSize="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tibaDiTujuanTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.6"
-                android:layout_gravity="center_vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_hijau_muda">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tiba di Tujuan"
-                        android:textSize="10dp"
+                        android:textSize="8dp"
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
                 </LinearLayout>
@@ -213,33 +71,8 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/light"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
-
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="List Barang Belanjaan : "
-            android:textSize="11dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="5dp"
-            android:text="1 Kg Apel, 1 Kg Alpukat, 1 Kg Jeruk "
-            android:textSize="10dp"/>
-
-        <TextView
+            android:id="@+id/tanggalOrderan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -247,7 +80,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:text="Senin, 20 September 2021"
-            android:textSize="10dp"
+            android:textSize="9dp"
             android:textStyle="italic"/>
 
         <LinearLayout
@@ -293,7 +126,7 @@
                     android:textSize="12dp"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/lihatDetailDua"
+                android:id="@+id/lihatDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

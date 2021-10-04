@@ -51,7 +51,7 @@ public class NotificationsFragment extends Fragment {
         HashMap<String, String> user = sessionManager.getUserDetails();
         sId = user.get(SessionManager.USER_ID);
 
-        //request data list alamat
+        //request data list notifikasi
         loadListNotifikasi(sId, "Y");
 
         //swipe refresh action

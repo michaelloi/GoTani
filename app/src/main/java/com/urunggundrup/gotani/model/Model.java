@@ -14,6 +14,8 @@ public class Model {
     List<ModelProdukUser> list_produk_user;
     List<ModelKeranjang> list_keranjang;
     List<ModelRekening> list_rekening;
+    List<ModelPesanan> list_pesanan;
+    List<ModelSatuan> list_satuan;
 
     public String getValue() {
         return value;
@@ -109,5 +111,21 @@ public class Model {
 
     public void setList_rekening(List<ModelRekening> list_rekening) {
         this.list_rekening = list_rekening;
+    }
+
+    public List<ModelPesanan> getList_pesanan() {
+        return list_pesanan;
+    }
+
+    public void setList_pesanan(List<ModelPesanan> list_pesanan) {
+        this.list_pesanan = list_pesanan;
+    }
+
+    public List<ModelSatuan> getList_satuan() {
+        return list_satuan;
+    }
+
+    public void setList_satuan(List<ModelSatuan> list_satuan) {
+        this.list_satuan = list_satuan;
     }
 }

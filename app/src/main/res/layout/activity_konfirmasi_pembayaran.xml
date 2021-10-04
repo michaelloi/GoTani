@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KonfirmasiPembayaran"
+    android:padding="10dp"
+    android:background="@color/light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LAKUKAN PEMBAYARAN"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="18dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/fotoTransferan"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/rectangle_grey"
+                android:padding="20dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_add" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tekan image diatas untuk upload bukti pembayaran"
+                android:textSize="11dp"
+                android:gravity="center"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:paddingLeft="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/nomorOrderan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nomor Orderan"
+                    android:textStyle="bold"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/totalBelanja"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Belanja"
+                    android:textSize="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transfer ke "
+                            android:textSize="9dp"
+                            android:textStyle="bold"
+                            android:maxLines="1"/>
+                        <TextView
+                            android:id="@+id/namaRekening"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BANK BRI A.N. ROBY D. PASARIBU"
+                            android:textSize="9dp"
+                            android:textStyle="bold"
+                            android:maxLines="1"/>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/noRekening"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0621649301"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:maxLines="1"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/simpanPerubahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_biru"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KONFIRMASI PEMBAYARAN"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

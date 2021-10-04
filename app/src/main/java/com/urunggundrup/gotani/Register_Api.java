@@ -60,6 +60,28 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("Add_Produk.php")
+    Call<Model> addProduk(
+            @Field("foto") String foto,
+            @Field("nama") String nama,
+            @Field("idtoko") String idtoko,
+            @Field("harga") String harga,
+            @Field("idsatuan") String idsatuan,
+            @Field("idkategori") String idkategori,
+            @Field("status") String status
+    );
+
+    @FormUrlEncoded
+    @POST("Konfirmasi_Pembayaran.php")
+    Call<Model> konfirmasiPembayaran(
+            @Field("foto_bukti_pembayaran") String foto_bukti_pembayaran,
+            @Field("id_user") String id_user,
+            @Field("id_pesanan") String id_pesanan,
+            @Field("id_rekening_pembayaran") String id_rekening_pembayaran,
+            @Field("no_pesanan") String no_pesanan
+    );
+
+    @FormUrlEncoded
     @POST("Delete_Keranjang_User.php")
     Call<Model> deleteKeranjangItem(
             @Field("idKeranjang") String idKeranjang
@@ -113,6 +135,12 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("ListSatuan.php")
+    Call<Model> listSatuan(
+            @Field("iduser") String iduser
+    );
+
+    @FormUrlEncoded
     @POST("ListProdukUserLimit.php")
     Call<Model> listProdukUserLimit(
             @Field("idkategori") String idkategori,
@@ -142,5 +170,12 @@ public interface Register_Api {
     @POST("ListRekening.php")
     Call<Model> listRekening(
             @Field("idUser") String idUser
+    );
+
+    @FormUrlEncoded
+    @POST("List_Pesanan.php")
+    Call<Model> listPesanan(
+            @Field("id_user") String id_user,
+            @Field("id_status_pesanan") String id_status_pesanan
     );
 }

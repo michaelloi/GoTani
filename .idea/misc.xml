@@ -32,14 +32,17 @@
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_alamat_checkout.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_alamat_pengiriman.xml" value="0.18" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_produk_penjualan.xml" value="0.22" />
-        <entry key="..\:/GoTani/app/src/main/res/layout/activity_check_out.xml" value="0.2" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_check_out.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_detail_produk_user.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_keranjang.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_konfirmasi_pembayaran.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_lihat_semua_produk.xml" value="0.13958333333333334" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.13405797101449277" />
         <entry key="..\:/GoTani/app/src/main/res/layout/content_add_produk.xml" value="0.14990942028985507" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/dialog_item_Pembayaran.xml" value="0.2" />
         <entry key="..\:/GoTani/app/src/main/res/layout/dialog_item_keranjang.xml" value="0.25" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/dialog_item_pembayaran.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/GoTani/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />

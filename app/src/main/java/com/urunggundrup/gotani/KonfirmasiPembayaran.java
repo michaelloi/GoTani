@@ -1,5 +1,12 @@
 package com.urunggundrup.gotani;
 
+import static com.urunggundrup.gotani.Add_Produk.checkAndRequestPermissions;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,43 +19,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.urunggundrup.gotani.adapter.AdapterSpinnerKategoriProduk;
-import com.urunggundrup.gotani.adapter.AdapterSpinnerSatuanProduk;
 import com.urunggundrup.gotani.databinding.ActivityAddProdukBinding;
+import com.urunggundrup.gotani.databinding.ActivityKonfirmasiPembayaranBinding;
 import com.urunggundrup.gotani.model.Model;
-import com.urunggundrup.gotani.model.ModelKategori;
-import com.urunggundrup.gotani.model.ModelSatuan;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,89 +44,64 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Add_Produk extends AppCompatActivity {
+public class KonfirmasiPembayaran extends AppCompatActivity {
 
-    private ActivityAddProdukBinding binding;
-    AdapterSpinnerKategoriProduk adapterSpinnerKategoriProduk;
-    AdapterSpinnerSatuanProduk adapterSpinnerSatuanProduk;
-    List<ModelKategori> listKategori = new ArrayList<>();
-    List<ModelSatuan> listSatuan = new ArrayList<>();
-    List<String> listNamaKategori = new ArrayList<>();
-    List<String> listNamaSatuan = new ArrayList<>();
-    String sKategoriProduk="0";
-    String sSatuanProdukk;
-    private ProgressDialog progress;
-    int a;
+    private ActivityKonfirmasiPembayaranBinding binding;
     SessionManager sessionManager;
-    String sIdToko, sFotoProduk="";
+    String sIdUser, sFotoBuktiTransfer="";
+    Intent getData;
+    private ProgressDialog progress;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Tambah Produk");
+        getSupportActionBar().setTitle("Konfirmasi Pembayaran");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        binding = ActivityAddProdukBinding.inflate(getLayoutInflater());
+        binding = ActivityKonfirmasiPembayaranBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //get data Intent
+        getData = getIntent();
 
         //Check session login
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
-        sIdToko = user.get(SessionManager.USER_ID_TOKO);
+        sIdUser = user.get(SessionManager.USER_ID);
 
-        //add image
-        binding.fotoProduk.setOnClickListener(new View.OnClickListener() {
+        //set total yang harus dibayar
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        formatRp.setCurrencySymbol("Rp ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+
+        String sHargaPesanan = kursIndonesia.format(Integer.valueOf(getData.getStringExtra("total_pembayaran")));
+        binding.totalBelanja.setText("Total Belanja "+sHargaPesanan);
+
+        binding.nomorOrderan.setText(getData.getStringExtra("no_pesanan"));
+        binding.namaRekening.setText(getData.getStringExtra("nama_bank") + " A.N. " + getData.getStringExtra("atas_nama"));
+        binding.noRekening.setText(getData.getStringExtra("nomor_rekening"));
+
+        binding.fotoTransferan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkAndRequestPermissions(Add_Produk.this)){
-                    chooseImage(Add_Produk.this);
+                if(checkAndRequestPermissions(KonfirmasiPembayaran.this)){
+                    chooseImage(KonfirmasiPembayaran.this);
                 }
             }
         });
 
-        //spinner kategori produk
-        loadListKategoriProduk("");
-        binding.spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sKategoriProduk = listKategori.get(binding.spinnerKategori.getSelectedItemPosition()).getId_kategori();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sKategoriProduk = listKategori.get(0).getId_kategori();
-            }
-        });
-
-        //spinner satuan produk
-        loadListSatuanProduk("");
-        binding.spinnerSatuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sSatuanProdukk = listSatuan.get(binding.spinnerSatuan.getSelectedItemPosition()).getId_satuan();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sSatuanProdukk = listSatuan.get(0).getId_satuan();
-            }
-        });
-
-        //simpan ke database
-        binding.simpanProduk.setOnClickListener(new View.OnClickListener() {
+        binding.simpanPerubahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sFotoProduk.equalsIgnoreCase("")){
-                    Toast.makeText(Add_Produk.this, "Pilih gambar untuk produk yang kamu jual", Toast.LENGTH_SHORT).show();
-                }else if(binding.namaProduk.getText().toString().length()==0){
-                    binding.namaProduk.setError("Masukkan nama produk kamu");
-                }else if(binding.hargaProduk.getText().toString().length()==0){
-                    binding.hargaProduk.setError("Masukkan harga produk kamu");
+                if(sFotoBuktiTransfer.equalsIgnoreCase("")){
+                    Toast.makeText(KonfirmasiPembayaran.this, "Pilih gambar untuk bukti pembayaran", Toast.LENGTH_SHORT).show();
                 }else{
-                    addProdukToko(sFotoProduk, binding.namaProduk.getText().toString(), sIdToko, binding.hargaProduk.getText().toString(), sSatuanProdukk, sKategoriProduk, "Aktif");
+                    konfirmasiPembayaranUser(sFotoBuktiTransfer, sIdUser, getData.getStringExtra("id_pesanan"), "1", getData.getStringExtra("no_pesanan"));
                 }
             }
         });
@@ -185,23 +148,23 @@ public class Add_Produk extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_ID_MULTIPLE_PERMISSIONS:
-                if (ContextCompat.checkSelfPermission(Add_Produk.this,
+                if (ContextCompat.checkSelfPermission(KonfirmasiPembayaran.this,
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getApplicationContext(),
                             "FlagUp Requires Access to Camera.", Toast.LENGTH_SHORT)
                             .show();
-                } else if (ContextCompat.checkSelfPermission(Add_Produk.this,
+                } else if (ContextCompat.checkSelfPermission(KonfirmasiPembayaran.this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getApplicationContext(),
                             "FlagUp Requires Access to Your Storage.",
                             Toast.LENGTH_SHORT).show();
-                }else if (ContextCompat.checkSelfPermission(Add_Produk.this,
+                }else if (ContextCompat.checkSelfPermission(KonfirmasiPembayaran.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getApplicationContext(),
                             "FlagUp Requires Access to Your Storage.",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    chooseImage(Add_Produk.this);
+                    chooseImage(KonfirmasiPembayaran.this);
                 }
                 break;
         }
@@ -242,8 +205,8 @@ public class Add_Produk extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        binding.fotoProduk.setImageBitmap(selectedImage);
-                        sFotoProduk = getStringImage(selectedImage);
+                        binding.fotoTransferan.setImageBitmap(selectedImage);
+                        sFotoBuktiTransfer = getStringImage(selectedImage);
                     }
                     break;
                 case 1:
@@ -256,8 +219,8 @@ public class Add_Produk extends AppCompatActivity {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                binding.fotoProduk.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                sFotoProduk = getStringImage(BitmapFactory.decodeFile(picturePath));
+                                binding.fotoTransferan.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                sFotoBuktiTransfer = getStringImage(BitmapFactory.decodeFile(picturePath));
                                 Log.d("LOCATION", picturePath);
                                 cursor.close();
                             }
@@ -268,73 +231,8 @@ public class Add_Produk extends AppCompatActivity {
         }
     }
 
-    private void loadListKategoriProduk(String s) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.urlacces))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Register_Api api = retrofit.create(Register_Api.class);
-        Call<Model> call = api.listKategori(s);
-        call.enqueue(new Callback<Model>() {
-            @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-
-                if(response.body().getValue().equalsIgnoreCase("1")){
-                    listKategori = response.body().getList_kategori();
-
-                    for(int i=0;i<listKategori.size();i++){
-                        listNamaKategori.add(listKategori.get(i).getNama_kategori());
-                    }
-
-                    adapterSpinnerKategoriProduk = new AdapterSpinnerKategoriProduk(getApplicationContext(), listNamaKategori);
-                    binding.spinnerKategori.setAdapter(adapterSpinnerKategoriProduk);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(Add_Produk.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadListSatuanProduk(String s) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.urlacces))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Register_Api api = retrofit.create(Register_Api.class);
-        Call<Model> call = api.listSatuan(s);
-        call.enqueue(new Callback<Model>() {
-            @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-
-                if(response.body().getValue().equalsIgnoreCase("1")){
-                    listSatuan = response.body().getList_satuan();
-                    sSatuanProdukk = listSatuan.get(0).getId_satuan();
-
-                    for(int i=0;i<listSatuan.size();i++){
-                        listNamaSatuan.add(listSatuan.get(i).getNama_satuan());
-                    }
-
-                    adapterSpinnerSatuanProduk = new AdapterSpinnerSatuanProduk(getApplicationContext(), listNamaSatuan);
-                    binding.spinnerSatuan.setAdapter(adapterSpinnerSatuanProduk);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(Add_Produk.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void addProdukToko(String foto, String nama, String idToko, String harga, String idSatuan, String idKategori, String status){
-        progress = new ProgressDialog(Add_Produk.this);
+    private void konfirmasiPembayaranUser(String foto_bukti_pembayaran, String id_user, String id_status_pesanan, String id_rekening_pembayaran, String no_pesanan){
+        progress = new ProgressDialog(KonfirmasiPembayaran.this);
         progress.setMessage("Tunggu Sebentar");
         progress.show();
         Retrofit retrofit = new Retrofit.Builder()
@@ -343,25 +241,25 @@ public class Add_Produk extends AppCompatActivity {
                 .build();
 
         Register_Api api = retrofit.create(Register_Api.class);
-        Call<Model> call = api.addProduk(foto, nama, idToko, harga, idSatuan, idKategori, status);
+        Call<Model> call = api.konfirmasiPembayaran(foto_bukti_pembayaran, id_user, id_status_pesanan, id_rekening_pembayaran, no_pesanan);
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 if(response.body().getValue().equalsIgnoreCase("1")){
-                    Toast.makeText(Add_Produk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent goToMainActivity = new Intent(Add_Produk.this, AturProdukPenjualan.class);
+                    Toast.makeText(KonfirmasiPembayaran.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent goToMainActivity = new Intent(KonfirmasiPembayaran.this, MainActivity.class);
                     goToMainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(goToMainActivity);
                     progress.dismiss();
                 }else{
-                    Toast.makeText(Add_Produk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KonfirmasiPembayaran.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(Add_Produk.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KonfirmasiPembayaran.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
             }
         });
     }

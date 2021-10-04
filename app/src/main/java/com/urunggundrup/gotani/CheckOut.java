@@ -46,7 +46,8 @@ public class CheckOut extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);getDataKeranjang = getIntent();
+        super.onCreate(savedInstanceState);
+        getDataKeranjang = getIntent();
         getSupportActionBar().setTitle("Pesanan");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
