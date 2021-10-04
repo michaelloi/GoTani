@@ -42,6 +42,7 @@ public interface Register_Api {
     @POST("Add_Pesanan.php")
     Call<Model> addPesanan(
             @Field("id_user") String id_user,
+            @Field("id_toko") String id_toko,
             @Field("id_status_pesanan") String id_status_pesanan,
             @Field("id_alamat") String id_alamat,
             @Field("id_rekening_pembayaran") String id_rekening_pembayaran,
@@ -176,6 +177,20 @@ public interface Register_Api {
     @POST("List_Pesanan.php")
     Call<Model> listPesanan(
             @Field("id_user") String id_user,
+            @Field("id_status_pesanan") String id_status_pesanan
+    );
+
+    @FormUrlEncoded
+    @POST("Edit_Status_Pesanan.php")
+    Call<Model> selesaikanPesanan(
+            @Field("idPesanan") String idPesanan,
+            @Field("idStatusPesanan") String idStatusPesanan
+    );
+
+    @FormUrlEncoded
+    @POST("List_Pesanan_Toko.php")
+    Call<Model> listPesananToko(
+            @Field("id_toko") String id_toko,
             @Field("id_status_pesanan") String id_status_pesanan
     );
 }

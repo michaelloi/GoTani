@@ -17,6 +17,15 @@
         android:theme="@style/Theme.GoTani"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DetailPesananToko"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityPesananToko"
+            android:exported="true" />
+        <activity
+            android:name=".DetailPesanan"
+            android:exported="true" />
+        <activity
             android:name=".KonfirmasiPembayaran"
             android:exported="true" />
         <activity

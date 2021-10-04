@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/GoTani/app/src/main/res/drawable-v24/ic_farmers.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_biru.xml" value="0.165625" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_biru_left.xml" value="0.146875" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_biru_right.xml" value="0.165625" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_hijau.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_kuning_left.xml" value="0.165625" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/half_rounded_red_left.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_add.xml" value="0.11354166666666667" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_add_putih.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_close_white.xml" value="0.11458333333333333" />
@@ -18,6 +21,7 @@
         <entry key="..\:/GoTani/app/src/main/res/drawable/ic_user_2.xml" value="0.2203125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rectangle_grey.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rectangle_polos.xml" value="0.165625" />
+        <entry key="..\:/GoTani/app/src/main/res/drawable/rectangle_solid_biru.xml" value="0.22135416666666666" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_biru.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_hijau.xml" value="0.1125" />
         <entry key="..\:/GoTani/app/src/main/res/drawable/rounded_hijau_muda.xml" value="0.165625" />
@@ -33,11 +37,14 @@
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_alamat_pengiriman.xml" value="0.18" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_atur_produk_penjualan.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_check_out.xml" value="0.33" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_detail_pesanan.xml" value="0.33" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_detail_pesanan_toko.xml" value="0.29634002361275086" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_detail_produk_user.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_keranjang.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_konfirmasi_pembayaran.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_lihat_semua_produk.xml" value="0.13958333333333334" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/activity_pesanan_toko.xml" value="0.20520833333333333" />
         <entry key="..\:/GoTani/app/src/main/res/layout/activity_splash_screen.xml" value="0.13405797101449277" />
         <entry key="..\:/GoTani/app/src/main/res/layout/content_add_produk.xml" value="0.14990942028985507" />
         <entry key="..\:/GoTani/app/src/main/res/layout/dialog_item_Pembayaran.xml" value="0.2" />
@@ -54,6 +61,7 @@
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_lihat_semua_produk_user_item.xml" value="0.33" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_notifikasi_item.xml" value="0.21" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_pesanan_item.xml" value="0.33" />
+        <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_pesanan_toko_item.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_produk_petani_item.xml" value="0.22" />
         <entry key="..\:/GoTani/app/src/main/res/layout/recyclerview_produk_user_item.xml" value="0.25" />
         <entry key="..\:/GoTani/app/src/main/res/layout/spinner_item.xml" value="0.13" />

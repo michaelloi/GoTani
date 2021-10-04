@@ -15,6 +15,7 @@ public class Model {
     List<ModelKeranjang> list_keranjang;
     List<ModelRekening> list_rekening;
     List<ModelPesanan> list_pesanan;
+    List<ModelPesananToko> list_pesananToko;
     List<ModelSatuan> list_satuan;
 
     public String getValue() {
@@ -127,5 +128,13 @@ public class Model {
 
     public void setList_satuan(List<ModelSatuan> list_satuan) {
         this.list_satuan = list_satuan;
+    }
+
+    public List<ModelPesananToko> getList_pesananToko() {
+        return list_pesananToko;
+    }
+
+    public void setList_pesananToko(List<ModelPesananToko> list_pesananToko) {
+        this.list_pesananToko = list_pesananToko;
     }
 }

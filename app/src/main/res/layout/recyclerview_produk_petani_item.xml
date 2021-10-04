@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/fotoProduk"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:layout_weight="0.7"
             android:scaleType="centerCrop"/>
 
@@ -24,7 +24,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:paddingLeft="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/namaProduk"

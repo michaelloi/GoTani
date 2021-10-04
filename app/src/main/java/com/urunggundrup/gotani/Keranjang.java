@@ -34,7 +34,7 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
 
     private ActivityKeranjangBinding binding;
     SessionManager sessionManager;
-    String sId="";
+    String sId="", idToko;
     AdapterKeranjang adapterKeranjang;
     List<ModelKeranjang> listKeranjang = new ArrayList<>();
     List<String> listIdKeranjang;
@@ -78,11 +78,17 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
         binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToAlamatCheckout = new Intent(Keranjang.this, AlamatCheckout.class);
-                goToAlamatCheckout.putExtra("listIdKeranjang", listIdKeranjang.toString());
-                goToAlamatCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
-                goToAlamatCheckout.putExtra("hargaPesanan", String.valueOf(hargaTotalItemPesanan));
-                startActivity(goToAlamatCheckout);
+                if(jumlahToko<2){
+                    Intent goToAlamatCheckout = new Intent(Keranjang.this, AlamatCheckout.class);
+                    goToAlamatCheckout.putExtra("listIdKeranjang", listIdKeranjang.toString());
+                    goToAlamatCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
+                    goToAlamatCheckout.putExtra("idToko",idToko);
+                    goToAlamatCheckout.putExtra("hargaPesanan", String.valueOf(hargaTotalItemPesanan));
+                    startActivity(goToAlamatCheckout);
+                }else{
+                    Toast.makeText(Keranjang.this, "Kamu hanya dapat memproses produk yang berasal dari 1 toko", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -189,6 +195,7 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
                 }
             }
             listIdToko.add(listKeranjangCheckout.get(i).getId_toko());
+            idToko=listKeranjangCheckout.get(i).getId_toko();
         }
     }
 }

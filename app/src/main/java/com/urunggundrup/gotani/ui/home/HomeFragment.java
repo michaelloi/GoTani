@@ -124,6 +124,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        binding.semuaProduk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToLihatSemuaProduk = new Intent(getActivity(), LihatSemuaProduk.class);
+                goToLihatSemuaProduk.putExtra("id_kategori", "0");
+                goToLihatSemuaProduk.putExtra("nama_kategori", "Semua Produk");
+                startActivity(goToLihatSemuaProduk);
+            }
+        });
+
         return root;
     }
 

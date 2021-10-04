@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.urunggundrup.gotani.Add_Produk;
+import com.urunggundrup.gotani.DetailPesanan;
 import com.urunggundrup.gotani.DetailProdukUser;
 import com.urunggundrup.gotani.KonfirmasiPembayaran;
 import com.urunggundrup.gotani.R;
@@ -122,6 +123,41 @@ public class AdapterPesanan extends RecyclerView.Adapter<AdapterPesanan.ViewHold
                 view.getContext().startActivity(goToKonfirmasiPembayaran);
             }
         });
+
+        holder.lihatDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToDetailPesanan = new Intent(view.getContext(), DetailPesanan.class);
+                goToDetailPesanan.putExtra("id_pesanan", listPesanan.get(positionChecked).getId_pesanan());
+                goToDetailPesanan.putExtra("listIdKeranjang", listPesanan.get(positionChecked).getList_id_keranjang());
+                goToDetailPesanan.putExtra("hargaOngkir", listPesanan.get(positionChecked).getHarga_ongkir());
+                goToDetailPesanan.putExtra("hargaPesananTotal", listPesanan.get(positionChecked).getHarga_pesanan());
+                goToDetailPesanan.putExtra("judulAlamatChecked", listPesanan.get(positionChecked).getJudul_alamat());
+                goToDetailPesanan.putExtra("namaPenerimaChecked", listPesanan.get(positionChecked).getNama_penerima());
+                goToDetailPesanan.putExtra("nohpPenerimaChecked", listPesanan.get(positionChecked).getNohp_penerima());
+                goToDetailPesanan.putExtra("alamatPenerimaChecked", listPesanan.get(positionChecked).getAlamat());
+                goToDetailPesanan.putExtra("statusPesanan", listPesanan.get(positionChecked).getNama_status_pesanan());
+                view.getContext().startActivity(goToDetailPesanan);
+            }
+        });
+
+        holder.bottomLayoutSatu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToDetailPesanan = new Intent(view.getContext(), DetailPesanan.class);
+                goToDetailPesanan.putExtra("id_pesanan", listPesanan.get(positionChecked).getId_pesanan());
+                goToDetailPesanan.putExtra("listIdKeranjang", listPesanan.get(positionChecked).getList_id_keranjang());
+                goToDetailPesanan.putExtra("hargaOngkir", listPesanan.get(positionChecked).getHarga_ongkir());
+                goToDetailPesanan.putExtra("hargaPesananTotal", listPesanan.get(positionChecked).getHarga_pesanan());
+                goToDetailPesanan.putExtra("judulAlamatChecked", listPesanan.get(positionChecked).getJudul_alamat());
+                goToDetailPesanan.putExtra("namaPenerimaChecked", listPesanan.get(positionChecked).getNama_penerima());
+                goToDetailPesanan.putExtra("nohpPenerimaChecked", listPesanan.get(positionChecked).getNohp_penerima());
+                goToDetailPesanan.putExtra("alamatPenerimaChecked", listPesanan.get(positionChecked).getAlamat());
+                goToDetailPesanan.putExtra("statusPesanan", listPesanan.get(positionChecked).getNama_status_pesanan());
+                view.getContext().startActivity(goToDetailPesanan);
+            }
+        });
+
     }
 
     @Override

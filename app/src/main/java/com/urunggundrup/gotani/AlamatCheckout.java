@@ -41,7 +41,7 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
     List<ModelAlamatUser> listAlamatUser = new ArrayList<>();
     String idAlamatChecked, judulAlamatChecked, namaPenerimaChecked, nohpPenerimaChecked, alamatPenerimaChecked;
     Intent getDataKeranjang;
-    String listIdKeranjang, jumlahToko, hargaPesanan;
+    String listIdKeranjang, jumlahToko, hargaPesanan, idToko;
     Integer hargaOngkir, hargaPesananTotal;
 
     @Override
@@ -62,6 +62,7 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
         listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
         jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
         hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
+        idToko = getDataKeranjang.getStringExtra("idToko");
 
         //request data list alamat
         loadListAlamat(sId, "Aktif");
@@ -88,6 +89,7 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
             public void onClick(View view) {
                 Intent goToCheckout = new Intent(AlamatCheckout.this, CheckOut.class);
                 goToCheckout.putExtra("listIdKeranjang", listIdKeranjang);
+                goToCheckout.putExtra("idToko",idToko);
                 goToCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
                 goToCheckout.putExtra("hargaPesanan", String.valueOf(hargaPesanan));
                 goToCheckout.putExtra("hargaOngkir", String.valueOf(hargaOngkir));

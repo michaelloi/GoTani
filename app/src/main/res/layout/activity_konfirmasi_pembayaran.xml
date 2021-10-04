@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".KonfirmasiPembayaran"
-    android:padding="10dp"
+    android:padding="16dp"
     android:background="@color/light">
 
     <LinearLayout

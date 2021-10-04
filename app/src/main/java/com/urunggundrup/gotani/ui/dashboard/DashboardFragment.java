@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.urunggundrup.gotani.ActivityPesananToko;
 import com.urunggundrup.gotani.Add_Produk;
 import com.urunggundrup.gotani.AturAlamatPengiriman;
 import com.urunggundrup.gotani.AturProdukPenjualan;
@@ -241,6 +242,56 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 Intent goToAturProdukPenjualan = new Intent(getActivity(), AturProdukPenjualan.class);
                 startActivity(goToAturProdukPenjualan);
+            }
+        });
+
+        binding.pesananMasuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Masuk");
+                goToActivityPesananToko.putExtra("statusPesanan", "1,2");
+                startActivity(goToActivityPesananToko);
+            }
+        });
+
+        binding.pesananDalamPengiriman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Dalam Pengiriman");
+                goToActivityPesananToko.putExtra("statusPesanan", "3");
+                startActivity(goToActivityPesananToko);
+            }
+        });
+
+        binding.pesananSampai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Sampai");
+                goToActivityPesananToko.putExtra("statusPesanan", "4");
+                startActivity(goToActivityPesananToko);
+            }
+        });
+
+        binding.pesananSelesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Selesai");
+                goToActivityPesananToko.putExtra("statusPesanan", "5");
+                startActivity(goToActivityPesananToko);
+            }
+        });
+
+        binding.pesananBatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Batal");
+                goToActivityPesananToko.putExtra("statusPesanan", "6");
+                startActivity(goToActivityPesananToko);
             }
         });
 

@@ -131,6 +131,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<AdapterKeranjang.View
                     }
                 }
                 keranjangListListener.getListChange(listKeranjangCheckout);
+                keranjangListListener.getJumlahToko(listKeranjangCheckout);
             }
         });
 
