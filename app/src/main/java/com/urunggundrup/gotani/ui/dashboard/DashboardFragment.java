@@ -236,6 +236,14 @@ public class DashboardFragment extends Fragment {
         });
 
         //dashboard Petani
+        binding.alamatPengirimanSessionLoginPetani.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToAturAlamatPengiriman = new Intent(getActivity(), AturAlamatPengiriman.class);
+                startActivity(goToAturAlamatPengiriman);
+            }
+        });
+
         //pindah ke halaman atur produk penjualan
         binding.aturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
             @Override

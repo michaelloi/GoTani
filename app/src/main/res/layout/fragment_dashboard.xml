@@ -465,6 +465,21 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/alamatPengirimanSessionLoginPetani"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_white"
+            android:layout_marginTop="10dp"
+            android:padding="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ATUR ALAMAT PENGIRIMAN"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/aturProdukPenjualan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
