@@ -60,12 +60,6 @@ public class DashboardFragment extends Fragment {
         LinearLayout linearSessionLoginPetani = binding.dashboardSessionLoginPetani;
         TextView namaToko = binding.namaToko;
         TextView namaPetani = binding.namaPetani;
-        LinearLayout btnPesananMasuk = binding.pesananMasuk;
-        LinearLayout btnPesananDalamPengiriman = binding.pesananDalamPengiriman;
-        LinearLayout btnPesananSampai = binding.pesananSampai;
-        LinearLayout btnPesananSelesai = binding.pesananSelesai;
-        LinearLayout btnPesananBatal = binding.pesananSelesai;
-        LinearLayout btnLihatPendapatan = binding.lihatPendapatan;
         LinearLayout btnLogoutPetani = binding.dashboardLogoutButtonPetani;
 
 
@@ -365,13 +359,16 @@ public class DashboardFragment extends Fragment {
                             response.body().getUser().getNama_toko(),
                             response.body().getUser().getCreated_date()
                     );
-                }
 
-                progress.dismiss();
-                Intent a = new Intent(getActivity(), MainActivity.class);
-                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(a);
-                Toast.makeText(getActivity(), "Selamat datang "+response.body().getUser().getNama_user(), Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    Intent a = new Intent(getActivity(), MainActivity.class);
+                    a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(a);
+                    Toast.makeText(getActivity(), "Selamat datang "+response.body().getUser().getNama_user(), Toast.LENGTH_SHORT).show();
+                }else{
+                    progress.dismiss();
+                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
