@@ -2,9 +2,9 @@
     <string name="app_name">GoTani</string>
 
 
-    <string name="urlacces">https://teberam.com/skripsi_roby/</string>
-    <string name="urlaccesdocuments">https://teberam.com/skripsi_roby/Foto_Produk/</string>
-    <string name="urlaccesfotopembyaran">https://teberam.com/skripsi_roby/Foto_Bukti_Transfer/</string>
+    <string name="urlacces">https://hobi-ku.com/skripsi_robi/gotani/</string>
+    <string name="urlaccesdocuments">https://hobi-ku.com/skripsi_robi/gotani/Foto_Produk/</string>
+    <string name="urlaccesfotopembyaran">https://hobi-ku.com/skripsi_robi/gotani/Foto_Bukti_Transfer/</string>
 
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
