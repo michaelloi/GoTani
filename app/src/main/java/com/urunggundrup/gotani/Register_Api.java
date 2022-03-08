@@ -96,6 +96,19 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("Delete_Produk_Petani.php")
+    Call<Model> deleteProdukPertanian(
+            @Field("id_produk") String idProduk
+    );
+
+    @FormUrlEncoded
+    @POST("Edit_Keranjang_User.php")
+    Call<Model> editProdukPertanian(
+            @Field("idKeranjang") String idKeranjang,
+            @Field("jumlahPesanan") String jumlahPesanan
+    );
+
+    @FormUrlEncoded
     @POST("ListLokasi.php")
     Call<Model> listLokasi(
             @Field("iduser") String iduser

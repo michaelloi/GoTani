@@ -50,7 +50,7 @@ public class AturProdukPenjualan extends AppCompatActivity {
     AdapterSpinnerKategoriProduk adapterSpinnerKategoriProduk;
     AdapterSpinnerUrutkan adapterSpinnerUrutkan;
     String sKategoriProduk="0";
-    String sUrutkan;
+    String sUrutkan="";
     String sId;
     List<ModelProdukPetani> listProdukPetani = new ArrayList<>();
     List<ModelKategori> listKategori = new ArrayList<>();
@@ -176,7 +176,7 @@ public class AturProdukPenjualan extends AppCompatActivity {
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(AturProdukPenjualan.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AturProdukPenjualan.this, "Gagal mengambil list kategori.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -222,7 +222,7 @@ public class AturProdukPenjualan extends AppCompatActivity {
                 binding.pesanProgress.setVisibility(View.GONE);
                 binding.recyclerProdukPetani.setVisibility(View.GONE);
                 binding.pesanMaaf.setVisibility(View.GONE);
-                Toast.makeText(AturProdukPenjualan.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AturProdukPenjualan.this, "Gagal mengambil list produk penjualan.", Toast.LENGTH_SHORT).show();
             }
         });
 
