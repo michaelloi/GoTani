@@ -34,11 +34,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.squareup.picasso.Picasso;
 import com.urunggundrup.gotani.adapter.AdapterSpinnerKategoriProduk;
 import com.urunggundrup.gotani.adapter.AdapterSpinnerSatuanProduk;
 import com.urunggundrup.gotani.databinding.ActivityAddProdukBinding;
 import com.urunggundrup.gotani.model.Model;
 import com.urunggundrup.gotani.model.ModelKategori;
+import com.urunggundrup.gotani.model.ModelProdukPetani;
 import com.urunggundrup.gotani.model.ModelSatuan;
 
 import java.io.ByteArrayOutputStream;
@@ -69,8 +71,11 @@ public class Add_Produk extends AppCompatActivity {
     String sSatuanProdukk;
     private ProgressDialog progress;
     int a;
+    int idSatuan = 0, idKategori = 0;
+    Intent getEditData = getIntent();
+    ModelProdukPetani modelProdukPetani = new ModelProdukPetani();
     SessionManager sessionManager;
-    String sIdToko, sFotoProduk="";
+    String sIdToko, sFotoProduk="", ubahFoto="";
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
 
@@ -84,18 +89,27 @@ public class Add_Produk extends AppCompatActivity {
         binding = ActivityAddProdukBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        modelProdukPetani = setupEditDataItem(getEditData);
+
+        if(modelProdukPetani.getId_produk().isEmpty()){
+            String urlFoto = getResources().getString(R.string.urlaccesdocuments);
+            Picasso.with(binding.fotoProduk.getContext()).load(urlFoto+modelProdukPetani.getFoto_produk()).into(binding.fotoProduk);
+            sFotoProduk = modelProdukPetani.getFoto_produk();
+            binding.namaProduk.setText(modelProdukPetani.getNama_produk());
+            binding.hargaProduk.setText(modelProdukPetani.getHarga_produk());
+            idSatuan = Integer.valueOf(modelProdukPetani.getId_satuan().isEmpty() ? modelProdukPetani.getId_satuan() : "0");
+            idKategori = Integer.valueOf(modelProdukPetani.getId_kategori().isEmpty() ? modelProdukPetani.getId_kategori() : "0");
+        }
+
         //Check session login
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
         sIdToko = user.get(SessionManager.USER_ID_TOKO);
 
         //add image
-        binding.fotoProduk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkAndRequestPermissions(Add_Produk.this)){
-                    chooseImage(Add_Produk.this);
-                }
+        binding.fotoProduk.setOnClickListener(view -> {
+            if(checkAndRequestPermissions(Add_Produk.this)){
+                chooseImage(Add_Produk.this);
             }
         });
 
@@ -109,6 +123,9 @@ public class Add_Produk extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                if (idKategori != 0){
+                    sKategoriProduk = listKategori.get(idKategori).getId_kategori();
+                }
                 sKategoriProduk = listKategori.get(0).getId_kategori();
             }
         });
@@ -123,23 +140,45 @@ public class Add_Produk extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                if (idSatuan != 0){
+                    sSatuanProdukk = listSatuan.get(idSatuan).getId_satuan();
+                }
                 sSatuanProdukk = listSatuan.get(0).getId_satuan();
             }
         });
 
         //simpan ke database
-        binding.simpanProduk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(sFotoProduk.equalsIgnoreCase("")){
-                    Toast.makeText(Add_Produk.this, "Pilih gambar untuk produk yang kamu jual", Toast.LENGTH_SHORT).show();
-                }else if(binding.namaProduk.getText().toString().length()==0){
-                    binding.namaProduk.setError("Masukkan nama produk kamu");
-                }else if(binding.hargaProduk.getText().toString().length()==0){
-                    binding.hargaProduk.setError("Masukkan harga produk kamu");
-                }else{
-                    addProdukToko(sFotoProduk, binding.namaProduk.getText().toString(), sIdToko, binding.hargaProduk.getText().toString(), sSatuanProdukk, sKategoriProduk, "Aktif");
+        binding.simpanProduk.setOnClickListener(view -> {
+            if(sFotoProduk.equalsIgnoreCase("")){
+                Toast.makeText(Add_Produk.this, "Pilih gambar untuk produk yang kamu jual", Toast.LENGTH_SHORT).show();
+            }else if(binding.namaProduk.getText().toString().length()==0){
+                binding.namaProduk.setError("Masukkan nama produk kamu");
+            }else if(binding.hargaProduk.getText().toString().length()==0){
+                binding.hargaProduk.setError("Masukkan harga produk kamu");
+            }else{
+                if(modelProdukPetani.getId_produk().isEmpty()){
+                    if(!sFotoProduk.equals(modelProdukPetani.getFoto_produk())){
+                        ubahFoto = "1";
+                    }
+                    editProdukToko(
+                            modelProdukPetani.getId_produk(),
+                            ubahFoto,
+                            sFotoProduk,
+                            binding.namaProduk.getText().toString(),
+                            binding.hargaProduk.getText().toString(),
+                            sSatuanProdukk,
+                            sKategoriProduk
+                    );
                 }
+                addProdukToko(
+                        sFotoProduk,
+                        binding.namaProduk.getText().toString(),
+                        sIdToko,
+                        binding.hargaProduk.getText().toString(),
+                        sSatuanProdukk,
+                        sKategoriProduk,
+                        "Aktif"
+                );
             }
         });
     }
@@ -333,7 +372,15 @@ public class Add_Produk extends AppCompatActivity {
         });
     }
 
-    private void addProdukToko(String foto, String nama, String idToko, String harga, String idSatuan, String idKategori, String status){
+    private void addProdukToko(
+            String foto,
+            String nama,
+            String idToko,
+            String harga,
+            String idSatuan,
+            String idKategori,
+            String status
+    ){
         progress = new ProgressDialog(Add_Produk.this);
         progress.setMessage("Tunggu Sebentar");
         progress.show();
@@ -364,5 +411,65 @@ public class Add_Produk extends AppCompatActivity {
                 Toast.makeText(Add_Produk.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void editProdukToko(
+            String idProduk,
+            String ubahFoto,
+            String foto,
+            String namaProduk,
+            String hargaProduk,
+            String idSatuan,
+            String idKategori
+    ){
+        progress = new ProgressDialog(Add_Produk.this);
+        progress.setMessage("Tunggu Sebentar");
+        progress.show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.urlacces))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Register_Api api = retrofit.create(Register_Api.class);
+        Call<Model> call = api.editProdukToko(
+                idProduk,
+                ubahFoto,
+                foto,
+                namaProduk,
+                hargaProduk,
+                idSatuan,
+                idKategori
+        );
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                if(response.body().getValue().equalsIgnoreCase("1")){
+                    Toast.makeText(Add_Produk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent goToMainActivity = new Intent(Add_Produk.this, AturProdukPenjualan.class);
+                    goToMainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(goToMainActivity);
+                    progress.dismiss();
+                }else{
+                    Toast.makeText(Add_Produk.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(Add_Produk.this, "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public ModelProdukPetani setupEditDataItem(Intent getEditData){
+        ModelProdukPetani modelProdukPetani = new ModelProdukPetani();
+        modelProdukPetani.setId_produk(getEditData.getStringExtra("idProduk"));
+        modelProdukPetani.setFoto_produk(getEditData.getStringExtra("foto"));
+        modelProdukPetani.setNama_produk(getEditData.getStringExtra("namaProduk"));
+        modelProdukPetani.setHarga_produk(getEditData.getStringExtra("hargaProduk"));
+        modelProdukPetani.setId_satuan(getEditData.getStringExtra("idSatuan"));
+        modelProdukPetani.setId_kategori(getEditData.getStringExtra("idKategori"));
+        return modelProdukPetani;
     }
 }

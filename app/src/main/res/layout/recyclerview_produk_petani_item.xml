@@ -6,57 +6,71 @@
     android:layout_margin="6dp"
     android:background="@color/white"
     app:cardCornerRadius="10dp">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/fotoProduk"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_weight="0.7"
-            android:scaleType="centerCrop"/>
-
+        android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/layoutEdit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:paddingLeft="10dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/namaProduk"
+            <ImageView
+                android:id="@+id/fotoProduk"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama Produk"
-                android:textStyle="bold"
-                android:textSize="16dp"/>
+                android:layout_height="80dp"
+                android:layout_weight="0.7"
+                android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/hargaProduk"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Harga : Rp 30.000 / kg"
-                android:textSize="12dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
 
-            <TextView
-                android:id="@+id/kategoriProduk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Buah - Buahan"
-                android:textSize="10dp"/>
-            <TextView
-                android:id="@+id/tanggalProduk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="29 September 2021"
-                android:textSize="10dp"
-                android:textStyle="italic"
-                android:gravity="right"/>
+                <TextView
+                    android:id="@+id/namaProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Produk"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/hargaProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Harga : Rp 30.000 / kg"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/kategoriProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Buah - Buahan"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tanggalProduk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="29 September 2021"
+                    android:textSize="10dp"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/deleteItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_close_white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

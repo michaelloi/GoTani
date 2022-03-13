@@ -143,6 +143,18 @@ public interface Register_Api {
     );
 
     @FormUrlEncoded
+    @POST("Edit_Produk_Petani.php")
+    Call<Model> editProdukToko(
+            @Field("id_produk") String id_produk,
+            @Field("ubah_foto") String ubah_foto,
+            @Field("foto") String foto,
+            @Field("nama_produk") String nama_produk,
+            @Field("harga_produk") String harga_produk,
+            @Field("id_satuan") String id_satuan,
+            @Field("id_kategori") String id_kategori
+    );
+
+    @FormUrlEncoded
     @POST("ListKategori.php")
     Call<Model> listKategori(
             @Field("iduser") String iduser

@@ -1,17 +1,20 @@
 package com.urunggundrup.gotani.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.urunggundrup.gotani.Add_Produk;
 import com.urunggundrup.gotani.R;
 import com.urunggundrup.gotani.Register_Api;
 import com.urunggundrup.gotani.model.Model;
@@ -31,8 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetani.ViewHolder> {
     Context context;
-    private List<ModelProdukPetani> listProdukPetani = new ArrayList<>();
-    private List<ModelProdukPetani> listProdukPetaniFinal = new ArrayList<>();
+    private List<ModelProdukPetani> listProdukPetani;
+    private List<ModelProdukPetani> listProdukPetaniFinal;
 
     public AdapterProdukPetani(Context context, List<ModelProdukPetani> listProdukPetani) {
         this.context = context;
@@ -66,40 +69,48 @@ public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetan
         holder.tanggalProduk.setText(modelProdukPetani.getCreated_date());
         holder.kategoriProduk.setText(modelProdukPetani.getNama_kategori());
 
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(holder.urlAccess)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+        holder.linearLayout.setOnClickListener(view -> {
+            Intent editItem = new Intent(view.getContext(), Add_Produk.class);
+            editItem.putExtra("idProduk", modelProdukPetani.getId_produk());
+            editItem.putExtra("foto", modelProdukPetani.getFoto_produk());
+            editItem.putExtra("namaProduk", modelProdukPetani.getNama_produk());
+            editItem.putExtra("hargaProduk", modelProdukPetani.getHarga_produk());
+            editItem.putExtra("idSatuan", modelProdukPetani.getId_satuan());
+            editItem.putExtra("idKategori", modelProdukPetani.getId_kategori());
+            view.getContext().startActivity(editItem);
+        });
 
-                Register_Api api = retrofit.create(Register_Api.class);
-                Call<Model> call = api.deleteProdukPertanian(listProdukPetani.get(positionChecked).getId_produk());
-                call.enqueue(new Callback<Model>() {
-                    @Override
-                    public void onResponse(Call<Model> call, Response<Model> response) {
+        holder.deleteItem.setOnClickListener(view -> {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(holder.urlAccess)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
-                        if(response.body().getValue().equalsIgnoreCase("1")){
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                listProdukPetaniFinal.removeIf(e -> e.getId_produk().equals(listProdukPetani.get(positionChecked).getId_produk()));
-                                listProdukPetani.remove(positionChecked);
-                                Toast.makeText(view.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                notifyItemRemoved(positionChecked);
-                                notifyItemRangeRemoved(positionChecked, listProdukPetani.size());
-                            }
-                        }else{
-                            Toast.makeText(view.getContext(), "Maaf terjadi kesalahan", Toast.LENGTH_SHORT).show();
+            Register_Api api = retrofit.create(Register_Api.class);
+            Call<Model> call = api.deleteProdukPertanian(listProdukPetani.get(positionChecked).getId_produk());
+            call.enqueue(new Callback<Model>() {
+                @Override
+                public void onResponse(Call<Model> call, Response<Model> response) {
+
+                    if(response.body().getValue().equalsIgnoreCase("1")){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            listProdukPetaniFinal.removeIf(e -> e.getId_produk().equals(listProdukPetani.get(positionChecked).getId_produk()));
+                            listProdukPetani.remove(positionChecked);
+                            Toast.makeText(view.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            notifyItemRemoved(positionChecked);
+                            notifyItemRangeRemoved(positionChecked, listProdukPetani.size());
                         }
+                    }else{
+                        Toast.makeText(view.getContext(), "Maaf terjadi kesalahan", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<Model> call, Throwable t) {
-                        t.printStackTrace();
-                        Toast.makeText(view.getContext(), "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<Model> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(view.getContext(), "Maaf, terjadi kesalahan dalam aplikasi.", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
@@ -112,6 +123,7 @@ public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetan
         public ImageView fotoProduk, deleteItem;
         public TextView namaProduk, hargaProduk, tanggalProduk, kategoriProduk;
         public String urlFoto, urlAccess;
+        public LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -121,6 +133,7 @@ public class AdapterProdukPetani extends RecyclerView.Adapter<AdapterProdukPetan
             hargaProduk = itemView.findViewById(R.id.hargaProduk);
             tanggalProduk = itemView.findViewById(R.id.tanggalProduk);
             kategoriProduk = itemView.findViewById(R.id.kategoriProduk);
+            linearLayout = itemView.findViewById(R.id.layoutEdit);
             urlFoto = itemView.getResources().getString(R.string.urlaccesdocuments);
             urlAccess = itemView.getResources().getString(R.string.urlacces);
         }

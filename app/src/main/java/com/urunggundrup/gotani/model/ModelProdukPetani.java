@@ -1,7 +1,7 @@
 package com.urunggundrup.gotani.model;
 
 public class ModelProdukPetani {
-    private String id_produk, nama_produk, foto_produk, harga_produk, nama_satuan, nama_kategori, status, created_date;
+    private String id_produk, nama_produk, foto_produk, harga_produk, id_satuan, nama_satuan, id_kategori, nama_kategori, status, created_date;
 
     public String getId_produk() {
         return id_produk;
@@ -65,5 +65,21 @@ public class ModelProdukPetani {
 
     public void setCreated_date(String created_date) {
         this.created_date = created_date;
+    }
+
+    public String getId_satuan() {
+        return id_satuan;
+    }
+
+    public void setId_satuan(String id_satuan) {
+        this.id_satuan = id_satuan;
+    }
+
+    public String getId_kategori() {
+        return id_kategori;
+    }
+
+    public void setId_kategori(String id_kategori) {
+        this.id_kategori = id_kategori;
     }
 }
