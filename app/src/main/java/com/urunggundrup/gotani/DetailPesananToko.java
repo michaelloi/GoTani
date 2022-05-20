@@ -56,65 +56,69 @@ public class DetailPesananToko extends AppCompatActivity {
         binding = ActivityDetailPesananTokoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //get data intent
-        listIdKeranjang = getData.getStringExtra("listIdKeranjang");
-        hargaPesanan = getData.getStringExtra("hargaPesanan");
-        hargaOngkir = getData.getStringExtra("hargaOngkir");
-        hargaPesananTotal = getData.getStringExtra("hargaPesananTotal");
-        judulAlamatChecked = getData.getStringExtra("judulAlamatChecked");
-        namaPenerimaChecked = getData.getStringExtra("namaPenerimaChecked");
-        nohpPenerimaChecked = getData.getStringExtra("nohpPenerimaChecked");
-        alamatPenerimaChecked = getData.getStringExtra("alamatPenerimaChecked");
+            //get data intent
+            listIdKeranjang = getData.getStringExtra("listIdKeranjang");
+            hargaPesanan = getData.getStringExtra("hargaPesanan");
+            hargaOngkir = getData.getStringExtra("hargaOngkir");
+            hargaPesananTotal = getData.getStringExtra("hargaPesananTotal");
+            judulAlamatChecked = getData.getStringExtra("judulAlamatChecked");
+            namaPenerimaChecked = getData.getStringExtra("namaPenerimaChecked");
+            nohpPenerimaChecked = getData.getStringExtra("nohpPenerimaChecked");
+            alamatPenerimaChecked = getData.getStringExtra("alamatPenerimaChecked");
 
-        jumlahToko = Integer.valueOf(hargaOngkir)/10000;
+            jumlahToko = Integer.valueOf(hargaOngkir)/10000;
 
-        //get data list keranjang checkout
-        loadKeranjangCheckout(listIdKeranjang.replace("[","").replace("]", ""));
+            //get data list keranjang checkout
+            loadKeranjangCheckout(listIdKeranjang.replace("[","").replace("]", ""));
 
-        //set data to recycler view
-        adapterKeranjangCheckout = new AdapterKeranjangCheckout(DetailPesananToko.this, listKeranjangCheckout);
-        RecyclerView.LayoutManager keranjangCheckoutLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerPembelian.setLayoutManager(keranjangCheckoutLayout);
-        binding.recyclerPembelian.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerPembelian.setAdapter(adapterKeranjangCheckout);
+            //set data to recycler view
+            adapterKeranjangCheckout = new AdapterKeranjangCheckout(DetailPesananToko.this, listKeranjangCheckout);
+            RecyclerView.LayoutManager keranjangCheckoutLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerPembelian.setLayoutManager(keranjangCheckoutLayout);
+            binding.recyclerPembelian.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerPembelian.setAdapter(adapterKeranjangCheckout);
 
-        //set total yang harus dibayar
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("Rp ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
+            //set total yang harus dibayar
+            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setCurrencySymbol("Rp ");
+            formatRp.setMonetaryDecimalSeparator(',');
+            formatRp.setGroupingSeparator('.');
+            kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-        String sHargaPesanan = kursIndonesia.format(Integer.valueOf(hargaPesananTotal));
-        binding.ongkir.setText("(Rp 10.000 x "+String.valueOf(jumlahToko)+")");
-        binding.totalHarga.setText(sHargaPesanan);
+            String sHargaPesanan = kursIndonesia.format(Integer.valueOf(hargaPesananTotal));
+            binding.ongkir.setText("(Rp 10.000 x "+String.valueOf(jumlahToko)+")");
+            binding.totalHarga.setText(sHargaPesanan);
 
-        //set text alamat pengiriman
-        binding.judulAlamat.setText(judulAlamatChecked);
-        binding.namaPenerima.setText(namaPenerimaChecked);
-        binding.nohpPenerima.setText(nohpPenerimaChecked);
-        binding.alamatPenerima.setText(alamatPenerimaChecked);
+            //set text alamat pengiriman
+            binding.judulAlamat.setText(judulAlamatChecked);
+            binding.namaPenerima.setText(namaPenerimaChecked);
+            binding.nohpPenerima.setText(nohpPenerimaChecked);
+            binding.alamatPenerima.setText(alamatPenerimaChecked);
 
-        //set text metode pembayaran
-        binding.namaRekening.setText("");
-        binding.noRekening.setText("");
+            //set text metode pembayaran
+            binding.namaRekening.setText("");
+            binding.noRekening.setText("");
 
-        //get data rekening
-        loadRekening();
+            //get data rekening
+            loadRekening();
 
-        if(getData.getStringExtra("statusPesanan").equalsIgnoreCase("Menunggu Pembayaran")){
-            binding.textFotoBukti.setVisibility(View.GONE);
-            binding.cardViewFoto.setVisibility(View.GONE);
-        }else{
-            binding.textBiaya.setVisibility(View.VISIBLE);
-            binding.cardviewBiaya.setVisibility(View.VISIBLE);
-            Picasso.with(binding.fotoBukti.getContext()).load(getResources().getString(R.string.urlaccesfotopembyaran)+getData.getStringExtra("fotoBuktiPembayaran")).into(binding.fotoBukti);
+            if(getData.getStringExtra("statusPesanan").equalsIgnoreCase("Menunggu Pembayaran")){
+                binding.textFotoBukti.setVisibility(View.GONE);
+                binding.cardViewFoto.setVisibility(View.GONE);
+            }else{
+                binding.textBiaya.setVisibility(View.VISIBLE);
+                binding.cardviewBiaya.setVisibility(View.VISIBLE);
+                Picasso.with(binding.fotoBukti.getContext()).load(getResources().getString(R.string.urlaccesfotopembyaran)+getData.getStringExtra("fotoBuktiPembayaran")).into(binding.fotoBukti);
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
     }
 

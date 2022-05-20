@@ -44,24 +44,27 @@ public class LihatSemuaProduk extends AppCompatActivity implements SearchView.On
         binding = ActivityLihatSemuaProdukBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //get list produk buah
-        loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
-        adapterProdukUserVertical = new AdapterProdukUserVertical(LihatSemuaProduk.this, listProduk);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerProdukUser.setLayoutManager(layoutManager);
-        binding.recyclerProdukUser.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerProdukUser.setAdapter(adapterProdukUserVertical);
+        try{
+            //get list produk buah
+            loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
+            adapterProdukUserVertical = new AdapterProdukUserVertical(LihatSemuaProduk.this, listProduk);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerProdukUser.setLayoutManager(layoutManager);
+            binding.recyclerProdukUser.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerProdukUser.setAdapter(adapterProdukUserVertical);
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //get list produk buah
-                loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
-
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    //get list produk buah
+                    loadProdukUser(getDataIntent.getStringExtra("id_kategori"),"");
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

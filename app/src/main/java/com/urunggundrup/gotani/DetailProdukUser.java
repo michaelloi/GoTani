@@ -39,49 +39,52 @@ public class DetailProdukUser extends AppCompatActivity {
         //untuk mendapatkan data yang di oper dari recyclerview
         Intent getDataIntent = getIntent();
 
-        getSupportActionBar().setTitle(getDataIntent.getStringExtra("nama_produk"));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        try{
+            getSupportActionBar().setTitle(getDataIntent.getStringExtra("nama_produk"));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        binding = ActivityDetailProdukUserBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+            binding = ActivityDetailProdukUserBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
 
-        //get session
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+            //get session
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        Picasso.with(binding.fotoProduk.getContext()).load(getResources().getString(R.string.urlaccesdocuments)+getDataIntent.getStringExtra("foto_produk")).into(binding.fotoProduk);
-        binding.namaProduk.setText(getDataIntent.getStringExtra("nama_produk"));
+            Picasso.with(binding.fotoProduk.getContext()).load(getResources().getString(R.string.urlaccesdocuments)+getDataIntent.getStringExtra("foto_produk")).into(binding.fotoProduk);
+            binding.namaProduk.setText(getDataIntent.getStringExtra("nama_produk"));
 
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("Rp ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
+            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setCurrencySymbol("Rp ");
+            formatRp.setMonetaryDecimalSeparator(',');
+            formatRp.setGroupingSeparator('.');
+            kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-        binding.hargaProduk.setText(kursIndonesia.format(Double.valueOf(getDataIntent.getStringExtra("harga_produk")))+" / "+getDataIntent.getStringExtra("nama_satuan"));
-        binding.namaToko.setText(getDataIntent.getStringExtra("nama_toko"));
-        binding.namaLokasi.setText(getDataIntent.getStringExtra("nama_lokasi"));
-        binding.keteranganSatuan.setText("Masukkan jumlah pesanan (satuan "+getDataIntent.getStringExtra("keterangan_satuan")+ ")");
-        binding.masukkanKeranjang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!sessionManager.isLoggedIn()){
-                    Toast.makeText(DetailProdukUser.this, "Maaf tidak dapat di proses. Kamu harus login terlebih dahulu", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(binding.jumlahPesanan.getText().toString().isEmpty()){
-                        binding.jumlahPesanan.setError("Kamu harus masukkan jumlah pesanan");
-                    }else if(Integer.valueOf(binding.jumlahPesanan.getText().toString())<1){
-                        binding.jumlahPesanan.setError("Kamu harus memesan lebih dari 0");
+            binding.hargaProduk.setText(kursIndonesia.format(Double.valueOf(getDataIntent.getStringExtra("harga_produk")))+" / "+getDataIntent.getStringExtra("nama_satuan"));
+            binding.namaToko.setText(getDataIntent.getStringExtra("nama_toko"));
+            binding.namaLokasi.setText(getDataIntent.getStringExtra("nama_lokasi"));
+            binding.keteranganSatuan.setText("Masukkan jumlah pesanan (satuan "+getDataIntent.getStringExtra("keterangan_satuan")+ ")");
+            binding.masukkanKeranjang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!sessionManager.isLoggedIn()){
+                        Toast.makeText(DetailProdukUser.this, "Maaf tidak dapat di proses. Kamu harus login terlebih dahulu", Toast.LENGTH_SHORT).show();
                     }else{
-                        masukkanKeranjang(getDataIntent.getStringExtra("id_produk"), sId, binding.jumlahPesanan.getText().toString());
+                        if(binding.jumlahPesanan.getText().toString().isEmpty()){
+                            binding.jumlahPesanan.setError("Kamu harus masukkan jumlah pesanan");
+                        }else if(Integer.valueOf(binding.jumlahPesanan.getText().toString())<1){
+                            binding.jumlahPesanan.setError("Kamu harus memesan lebih dari 0");
+                        }else{
+                            masukkanKeranjang(getDataIntent.getStringExtra("id_produk"), sId, binding.jumlahPesanan.getText().toString());
+                        }
                     }
                 }
-            }
-        });
-
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

@@ -55,65 +55,69 @@ public class CheckOut extends AppCompatActivity {
         binding = ActivityCheckOutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //get data intent
-        listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
-        jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
-        idToko = getDataKeranjang.getStringExtra("idToko");
-        hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
-        hargaOngkir = getDataKeranjang.getStringExtra("hargaOngkir");
-        hargaPesananTotal = getDataKeranjang.getStringExtra("hargaPesananTotal");
-        idAlamatChecked = getDataKeranjang.getStringExtra("idAlamat");
-        judulAlamatChecked = getDataKeranjang.getStringExtra("judulAlamatChecked");
-        namaPenerimaChecked = getDataKeranjang.getStringExtra("namaPenerimaChecked");
-        nohpPenerimaChecked = getDataKeranjang.getStringExtra("nohpPenerimaChecked");
-        alamatPenerimaChecked = getDataKeranjang.getStringExtra("alamatPenerimaChecked");
+            //get data intent
+            listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
+            jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
+            idToko = getDataKeranjang.getStringExtra("idToko");
+            hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
+            hargaOngkir = getDataKeranjang.getStringExtra("hargaOngkir");
+            hargaPesananTotal = getDataKeranjang.getStringExtra("hargaPesananTotal");
+            idAlamatChecked = getDataKeranjang.getStringExtra("idAlamat");
+            judulAlamatChecked = getDataKeranjang.getStringExtra("judulAlamatChecked");
+            namaPenerimaChecked = getDataKeranjang.getStringExtra("namaPenerimaChecked");
+            nohpPenerimaChecked = getDataKeranjang.getStringExtra("nohpPenerimaChecked");
+            alamatPenerimaChecked = getDataKeranjang.getStringExtra("alamatPenerimaChecked");
 
-        //get data list keranjang checkout
-        loadKeranjangCheckout(listIdKeranjang.replace("[","").replace("]", ""));
+            //get data list keranjang checkout
+            loadKeranjangCheckout(listIdKeranjang.replace("[","").replace("]", ""));
 
-        //set data to recycler view
-        adapterKeranjangCheckout = new AdapterKeranjangCheckout(CheckOut.this, listKeranjangCheckout);
-        RecyclerView.LayoutManager keranjangCheckoutLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerPembelian.setLayoutManager(keranjangCheckoutLayout);
-        binding.recyclerPembelian.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerPembelian.setAdapter(adapterKeranjangCheckout);
+            //set data to recycler view
+            adapterKeranjangCheckout = new AdapterKeranjangCheckout(CheckOut.this, listKeranjangCheckout);
+            RecyclerView.LayoutManager keranjangCheckoutLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerPembelian.setLayoutManager(keranjangCheckoutLayout);
+            binding.recyclerPembelian.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerPembelian.setAdapter(adapterKeranjangCheckout);
 
-        //set total yang harus dibayar
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("Rp ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
+            //set total yang harus dibayar
+            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setCurrencySymbol("Rp ");
+            formatRp.setMonetaryDecimalSeparator(',');
+            formatRp.setGroupingSeparator('.');
+            kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-        String sHargaPesanan = kursIndonesia.format(Integer.valueOf(hargaPesananTotal));
-        binding.ongkir.setText("(Rp 10.000 x "+jumlahToko+")");
-        binding.totalHarga.setText(sHargaPesanan);
+            String sHargaPesanan = kursIndonesia.format(Integer.valueOf(hargaPesananTotal));
+            binding.ongkir.setText("(Rp 10.000 x "+jumlahToko+")");
+            binding.totalHarga.setText(sHargaPesanan);
 
-        //set text alamat pengiriman
-        binding.judulAlamat.setText(judulAlamatChecked);
-        binding.namaPenerima.setText(namaPenerimaChecked);
-        binding.nohpPenerima.setText(nohpPenerimaChecked);
-        binding.alamatPenerima.setText(alamatPenerimaChecked);
+            //set text alamat pengiriman
+            binding.judulAlamat.setText(judulAlamatChecked);
+            binding.namaPenerima.setText(namaPenerimaChecked);
+            binding.nohpPenerima.setText(nohpPenerimaChecked);
+            binding.alamatPenerima.setText(alamatPenerimaChecked);
 
-        //set text metode pembayaran
-        binding.namaRekening.setText("");
-        binding.noRekening.setText("");
+            //set text metode pembayaran
+            binding.namaRekening.setText("");
+            binding.noRekening.setText("");
 
-        //get data rekening
-        loadRekening();
+            //get data rekening
+            loadRekening();
 
-        binding.buttonPesan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPesanan(sId,idToko,"1",idAlamatChecked,listRekening.get(0).getId_rekening_pembayaran(), listIdKeranjang.replace("[","").replace("]", ""), hargaPesanan, hargaOngkir, hargaPesananTotal);
-            }
-        });
+            binding.buttonPesan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPesanan(sId,idToko,"1",idAlamatChecked,listRekening.get(0).getId_rekening_pembayaran(), listIdKeranjang.replace("[","").replace("]", ""), hargaPesanan, hargaOngkir, hargaPesananTotal);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

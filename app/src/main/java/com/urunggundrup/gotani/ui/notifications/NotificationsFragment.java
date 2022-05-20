@@ -46,30 +46,33 @@ public class NotificationsFragment extends Fragment {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getActivity().getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //request data list notifikasi
-        loadListNotifikasi(sId, "Y");
+            //request data list notifikasi
+            loadListNotifikasi(sId, "Y");
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListNotifikasi(sId, "Y");
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListNotifikasi(sId, "Y");
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
 
-        //set data list alamat to recyclerview
-        adapterNotifikasi = new AdapterNotifikasi(getActivity(), listNotifikasi);
-        RecyclerView.LayoutManager notifikasiLayout = new GridLayoutManager(getActivity().getApplicationContext(), 1);
-        binding.recyclerNotifikasi.setLayoutManager(notifikasiLayout);
-        binding.recyclerNotifikasi.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerNotifikasi.setAdapter(adapterNotifikasi);
-
+            //set data list alamat to recyclerview
+            adapterNotifikasi = new AdapterNotifikasi(getActivity(), listNotifikasi);
+            RecyclerView.LayoutManager notifikasiLayout = new GridLayoutManager(getActivity().getApplicationContext(), 1);
+            binding.recyclerNotifikasi.setLayoutManager(notifikasiLayout);
+            binding.recyclerNotifikasi.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerNotifikasi.setAdapter(adapterNotifikasi);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return root;
     }
 

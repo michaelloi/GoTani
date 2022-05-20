@@ -67,75 +67,78 @@ public class AturProdukPenjualan extends AppCompatActivity {
         binding = ActivityAturProdukPenjualanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID_TOKO);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID_TOKO);
 
-        //spinner kategori produk
-        loadListKategoriProduk("");
-        binding.spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(binding.spinnerKategori.getSelectedItemPosition()!=0){
-                    sKategoriProduk = listKategori.get(binding.spinnerKategori.getSelectedItemPosition()-1).getId_kategori();
-                    loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
-                }else{
+            //spinner kategori produk
+            loadListKategoriProduk("");
+            binding.spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(binding.spinnerKategori.getSelectedItemPosition()!=0){
+                        sKategoriProduk = listKategori.get(binding.spinnerKategori.getSelectedItemPosition()-1).getId_kategori();
+                        loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
+                    }else{
+                        sKategoriProduk = "0";
+                        loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
                     sKategoriProduk = "0";
+                }
+            });
+
+            //spinner urutkan berdasarkan
+            listUrutkan = Arrays.asList(getResources().getStringArray(R.array.urutkan_arrays));
+            adapterSpinnerUrutkan = new AdapterSpinnerUrutkan(getApplicationContext(), listUrutkan);
+            binding.spinnerUrutkan.setAdapter(adapterSpinnerUrutkan);
+            binding.spinnerUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    sUrutkan = listUrutkan.get(binding.spinnerUrutkan.getSelectedItemPosition());
                     loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sKategoriProduk = "0";
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    sUrutkan = "";
+                }
+            });
 
-        //spinner urutkan berdasarkan
-        listUrutkan = Arrays.asList(getResources().getStringArray(R.array.urutkan_arrays));
-        adapterSpinnerUrutkan = new AdapterSpinnerUrutkan(getApplicationContext(), listUrutkan);
-        binding.spinnerUrutkan.setAdapter(adapterSpinnerUrutkan);
-        binding.spinnerUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sUrutkan = listUrutkan.get(binding.spinnerUrutkan.getSelectedItemPosition());
-                loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
-            }
+            //load list produk penjualan
+            loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sUrutkan = "";
-            }
-        });
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
 
-        //load list produk penjualan
-        loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
+            //set data list alamat to recyclerview
+            adapterProdukPetani = new AdapterProdukPetani(AturProdukPenjualan.this, listProdukPetani);
+            RecyclerView.LayoutManager produkPertanianLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerProdukPetani.setLayoutManager(produkPertanianLayout);
+            binding.recyclerProdukPetani.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerProdukPetani.setAdapter(adapterProdukPetani);
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListProdukPenjualan(sId, sKategoriProduk, sUrutkan);
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
-
-        //set data list alamat to recyclerview
-        adapterProdukPetani = new AdapterProdukPetani(AturProdukPenjualan.this, listProdukPetani);
-        RecyclerView.LayoutManager produkPertanianLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerProdukPetani.setLayoutManager(produkPertanianLayout);
-        binding.recyclerProdukPetani.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerProdukPetani.setAdapter(adapterProdukPetani);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToAddProduk = new Intent(AturProdukPenjualan.this, Add_Produk.class);
-                startActivity(goToAddProduk);
-            }
-        });
-
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToAddProduk = new Intent(AturProdukPenjualan.this, Add_Produk.class);
+                    startActivity(goToAddProduk);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

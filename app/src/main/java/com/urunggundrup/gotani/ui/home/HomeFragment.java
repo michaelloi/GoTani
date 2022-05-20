@@ -52,88 +52,91 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.keranjang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToKeranjang = new Intent(getActivity(), Keranjang.class);
-                startActivity(goToKeranjang);
-            }
-        });
+        try{
+            binding.keranjang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToKeranjang = new Intent(getActivity(), Keranjang.class);
+                    startActivity(goToKeranjang);
+                }
+            });
 
-        //get list produk buah
-        loadProdukUser("1","");
+            //get list produk buah
+            loadProdukUser("1","");
 
-        //set recycler view buah
-        adapterProdukUserHorizontalBuah = new AdapterProdukUserHorizontal(getActivity(), listBuah);
-        RecyclerView.LayoutManager layoutManagerBuah = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recyclerBuah.setLayoutManager(layoutManagerBuah);
-        binding.recyclerBuah.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerBuah.setAdapter(adapterProdukUserHorizontalBuah);
+            //set recycler view buah
+            adapterProdukUserHorizontalBuah = new AdapterProdukUserHorizontal(getActivity(), listBuah);
+            RecyclerView.LayoutManager layoutManagerBuah = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            binding.recyclerBuah.setLayoutManager(layoutManagerBuah);
+            binding.recyclerBuah.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerBuah.setAdapter(adapterProdukUserHorizontalBuah);
 
-        //go to lihat semua buah
-        binding.lihatSemuaBuah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToLihatSemuaBuah = new Intent(getActivity(), LihatSemuaProduk.class);
-                goToLihatSemuaBuah.putExtra("id_kategori", "1");
-                goToLihatSemuaBuah.putExtra("nama_kategori", "Buah Buahan");
-                startActivity(goToLihatSemuaBuah);
-            }
-        });
+            //go to lihat semua buah
+            binding.lihatSemuaBuah.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToLihatSemuaBuah = new Intent(getActivity(), LihatSemuaProduk.class);
+                    goToLihatSemuaBuah.putExtra("id_kategori", "1");
+                    goToLihatSemuaBuah.putExtra("nama_kategori", "Buah Buahan");
+                    startActivity(goToLihatSemuaBuah);
+                }
+            });
 
-        //get list produk sayur
-        loadProdukUser("2","");
+            //get list produk sayur
+            loadProdukUser("2","");
 
-        //set recycler view sayur
-        adapterProdukUserHorizontalSayur = new AdapterProdukUserHorizontal(getActivity(), listSayur);
-        RecyclerView.LayoutManager layoutManagerSayur = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recyclerSayur.setLayoutManager(layoutManagerSayur);
-        binding.recyclerSayur.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerSayur.setAdapter(adapterProdukUserHorizontalSayur);
+            //set recycler view sayur
+            adapterProdukUserHorizontalSayur = new AdapterProdukUserHorizontal(getActivity(), listSayur);
+            RecyclerView.LayoutManager layoutManagerSayur = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            binding.recyclerSayur.setLayoutManager(layoutManagerSayur);
+            binding.recyclerSayur.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerSayur.setAdapter(adapterProdukUserHorizontalSayur);
 
-        //go to lihat semua sayur
-        binding.lihatSemuaSayur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToLihatSemuaSayur = new Intent(getActivity(), LihatSemuaProduk.class);
-                goToLihatSemuaSayur.putExtra("id_kategori", "2");
-                goToLihatSemuaSayur.putExtra("nama_kategori", "Sayur Sayuran");
-                startActivity(goToLihatSemuaSayur);
-            }
-        });
+            //go to lihat semua sayur
+            binding.lihatSemuaSayur.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToLihatSemuaSayur = new Intent(getActivity(), LihatSemuaProduk.class);
+                    goToLihatSemuaSayur.putExtra("id_kategori", "2");
+                    goToLihatSemuaSayur.putExtra("nama_kategori", "Sayur Sayuran");
+                    startActivity(goToLihatSemuaSayur);
+                }
+            });
 
 
-        //get list produk bumbu
-        loadProdukUser("3","");
+            //get list produk bumbu
+            loadProdukUser("3","");
 
-        //set recycler view bumbu
-        adapterProdukUserHorizontalBumbu = new AdapterProdukUserHorizontal(getActivity(), listBumbu);
-        RecyclerView.LayoutManager layoutManagerBumbu = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        binding.recyclerBumbu.setLayoutManager(layoutManagerBumbu);
-        binding.recyclerBumbu.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerBumbu.setAdapter(adapterProdukUserHorizontalBumbu);
+            //set recycler view bumbu
+            adapterProdukUserHorizontalBumbu = new AdapterProdukUserHorizontal(getActivity(), listBumbu);
+            RecyclerView.LayoutManager layoutManagerBumbu = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            binding.recyclerBumbu.setLayoutManager(layoutManagerBumbu);
+            binding.recyclerBumbu.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerBumbu.setAdapter(adapterProdukUserHorizontalBumbu);
 
-        //go to lihat semua bumbu
-        binding.lihatSemuaBumbu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToLihatSemuaBumbu = new Intent(getActivity(), LihatSemuaProduk.class);
-                goToLihatSemuaBumbu.putExtra("id_kategori", "3");
-                goToLihatSemuaBumbu.putExtra("nama_kategori", "Bumbu Dapur");
-                startActivity(goToLihatSemuaBumbu);
-            }
-        });
+            //go to lihat semua bumbu
+            binding.lihatSemuaBumbu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToLihatSemuaBumbu = new Intent(getActivity(), LihatSemuaProduk.class);
+                    goToLihatSemuaBumbu.putExtra("id_kategori", "3");
+                    goToLihatSemuaBumbu.putExtra("nama_kategori", "Bumbu Dapur");
+                    startActivity(goToLihatSemuaBumbu);
+                }
+            });
 
-        binding.semuaProduk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToLihatSemuaProduk = new Intent(getActivity(), LihatSemuaProduk.class);
-                goToLihatSemuaProduk.putExtra("id_kategori", "0");
-                goToLihatSemuaProduk.putExtra("nama_kategori", "Semua Produk");
-                startActivity(goToLihatSemuaProduk);
-            }
-        });
-
+            binding.semuaProduk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToLihatSemuaProduk = new Intent(getActivity(), LihatSemuaProduk.class);
+                    goToLihatSemuaProduk.putExtra("id_kategori", "0");
+                    goToLihatSemuaProduk.putExtra("nama_kategori", "Semua Produk");
+                    startActivity(goToLihatSemuaProduk);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return root;
     }
 

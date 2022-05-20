@@ -63,48 +63,52 @@ public class KonfirmasiPembayaran extends AppCompatActivity {
         binding = ActivityKonfirmasiPembayaranBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //get data Intent
-        getData = getIntent();
+        try{
+            //get data Intent
+            getData = getIntent();
 
-        //Check session login
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sIdUser = user.get(SessionManager.USER_ID);
+            //Check session login
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sIdUser = user.get(SessionManager.USER_ID);
 
-        //set total yang harus dibayar
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("Rp ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
+            //set total yang harus dibayar
+            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setCurrencySymbol("Rp ");
+            formatRp.setMonetaryDecimalSeparator(',');
+            formatRp.setGroupingSeparator('.');
+            kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-        String sHargaPesanan = kursIndonesia.format(Integer.valueOf(getData.getStringExtra("total_pembayaran")));
-        binding.totalBelanja.setText("Total Belanja "+sHargaPesanan);
+            String sHargaPesanan = kursIndonesia.format(Integer.valueOf(getData.getStringExtra("total_pembayaran")));
+            binding.totalBelanja.setText("Total Belanja "+sHargaPesanan);
 
-        binding.nomorOrderan.setText(getData.getStringExtra("no_pesanan"));
-        binding.namaRekening.setText(getData.getStringExtra("nama_bank") + " A.N. " + getData.getStringExtra("atas_nama"));
-        binding.noRekening.setText(getData.getStringExtra("nomor_rekening"));
+            binding.nomorOrderan.setText(getData.getStringExtra("no_pesanan"));
+            binding.namaRekening.setText(getData.getStringExtra("nama_bank") + " A.N. " + getData.getStringExtra("atas_nama"));
+            binding.noRekening.setText(getData.getStringExtra("nomor_rekening"));
 
-        binding.fotoTransferan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkAndRequestPermissions(KonfirmasiPembayaran.this)){
-                    chooseImage(KonfirmasiPembayaran.this);
+            binding.fotoTransferan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(checkAndRequestPermissions(KonfirmasiPembayaran.this)){
+                        chooseImage(KonfirmasiPembayaran.this);
+                    }
                 }
-            }
-        });
+            });
 
-        binding.simpanPerubahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(sFotoBuktiTransfer.equalsIgnoreCase("")){
-                    Toast.makeText(KonfirmasiPembayaran.this, "Pilih gambar untuk bukti pembayaran", Toast.LENGTH_SHORT).show();
-                }else{
-                    konfirmasiPembayaranUser(sFotoBuktiTransfer, sIdUser, getData.getStringExtra("id_pesanan"), "1", getData.getStringExtra("no_pesanan"));
+            binding.simpanPerubahan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(sFotoBuktiTransfer.equalsIgnoreCase("")){
+                        Toast.makeText(KonfirmasiPembayaran.this, "Pilih gambar untuk bukti pembayaran", Toast.LENGTH_SHORT).show();
+                    }else{
+                        konfirmasiPembayaranUser(sFotoBuktiTransfer, sIdUser, getData.getStringExtra("id_pesanan"), "1", getData.getStringExtra("no_pesanan"));
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

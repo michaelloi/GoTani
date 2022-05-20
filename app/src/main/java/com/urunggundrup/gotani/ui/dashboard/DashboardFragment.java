@@ -56,38 +56,182 @@ public class DashboardFragment extends Fragment {
 
         View root = binding.getRoot();
 
-        //Session Login Petani Element
-        LinearLayout linearSessionLoginPetani = binding.dashboardSessionLoginPetani;
-        TextView namaToko = binding.namaToko;
-        TextView namaPetani = binding.namaPetani;
-        LinearLayout btnLogoutPetani = binding.dashboardLogoutButtonPetani;
+        try{
+            //Session Login Petani Element
+            LinearLayout linearSessionLoginPetani = binding.dashboardSessionLoginPetani;
+            TextView namaToko = binding.namaToko;
+            TextView namaPetani = binding.namaPetani;
+            LinearLayout btnLogoutPetani = binding.dashboardLogoutButtonPetani;
 
 
-        //Check session login
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
-        sNama = user.get(SessionManager.USER_NAMA);
-        sStatusLogin = user.get(SessionManager.USER_STATUS);
-        sNamaToko = user.get(SessionManager.USER_NAMA_TOKO);
+            //Check session login
+            sessionManager = new SessionManager(getActivity().getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
+            sNama = user.get(SessionManager.USER_NAMA);
+            sStatusLogin = user.get(SessionManager.USER_STATUS);
+            sNamaToko = user.get(SessionManager.USER_NAMA_TOKO);
 
-        if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Pembeli")){
-            binding.dashboardSessionLogin.setVisibility(View.VISIBLE);
-            linearSessionLoginPetani.setVisibility(View.GONE);
-            binding.linearLoginDashboard.setVisibility(View.GONE);
-            binding.linearRegisterDashboard.setVisibility(View.GONE);
-            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
+            if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Pembeli")){
+                binding.dashboardSessionLogin.setVisibility(View.VISIBLE);
+                linearSessionLoginPetani.setVisibility(View.GONE);
+                binding.linearLoginDashboard.setVisibility(View.GONE);
+                binding.linearRegisterDashboard.setVisibility(View.GONE);
+                binding.linearNamaTokoDashboard.setVisibility(View.GONE);
 
-            //Set Session Login Pembeli Element
-            binding.namaSessionLoginPembeli.setText("Hai "+sNama);
-            binding.dashboardLogoutButton.setOnClickListener(new View.OnClickListener() {
+                //Set Session Login Pembeli Element
+                binding.namaSessionLoginPembeli.setText("Hai "+sNama);
+                binding.dashboardLogoutButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        sessionManager.logoutUser();
+                    }
+                });
+
+                binding.alamatPengirimanSessionLoginPembeli.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent goToAturAlamatPengiriman = new Intent(getActivity(), AturAlamatPengiriman.class);
+                        startActivity(goToAturAlamatPengiriman);
+                    }
+                });
+
+            }else if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Petani")){
+                linearSessionLoginPetani.setVisibility(View.VISIBLE);
+                binding.dashboardSessionLogin.setVisibility(View.GONE);
+                binding.linearLoginDashboard.setVisibility(View.GONE);
+                binding.linearRegisterDashboard.setVisibility(View.GONE);
+                binding.linearNamaTokoDashboard.setVisibility(View.GONE);
+
+                //Set Session Login Petani Element
+                namaToko.setText(sNamaToko);
+                namaPetani.setText("Pengelola : "+sNama);
+                btnLogoutPetani.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        sessionManager.logoutUser();
+                    }
+                });
+
+            }else{
+                binding.linearLoginDashboard.setVisibility(View.VISIBLE);
+                binding.linearRegisterDashboard.setVisibility(View.GONE);
+                binding.linearNamaTokoDashboard.setVisibility(View.GONE);
+                linearSessionLoginPetani.setVisibility(View.GONE);
+                binding.dashboardSessionLogin.setVisibility(View.GONE);
+            }
+
+            //Register to Login
+            binding.dashboardLoginText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    sessionManager.logoutUser();
+                    binding.linearLoginDashboard.setVisibility(View.VISIBLE);
+                    binding.linearRegisterDashboard.setVisibility(View.GONE);
                 }
             });
 
-            binding.alamatPengirimanSessionLoginPembeli.setOnClickListener(new View.OnClickListener() {
+            //Login to Register
+            binding.dashboardRegisterText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    binding.linearRegisterDashboard.setVisibility(View.VISIBLE);
+                    binding.linearLoginDashboard.setVisibility(View.GONE);
+                }
+            });
+
+            //Spinner Register Lokasi
+            loadListLokasi("");
+            binding.dashboardLokasi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(binding.dashboardLokasi.getSelectedItemPosition()!=0){
+                        slokasi = listLokasi.get(binding.dashboardLokasi.getSelectedItemPosition()-1).getId_lokasi();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    slokasi = "";
+                }
+            });
+
+            //Register sebagai Pembeli
+            binding.dashboardPembeli.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sStatus="Pembeli";
+
+                    if(binding.dashboardNama.getText().length()==0){
+                        binding.dashboardNama.setError("Nama harus di isi");
+                    }else if(binding.dashboardNohp.getText().length()==0){
+                        binding.dashboardNohp.setError("Nomor Handphone harus di isi");
+                    }else if(binding.dashboardUsername.getText().length()==0){
+                        binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
+                    }else if(binding.dashboardPassword.getText().length()==0){
+                        binding.dashboardPassword.setError("Password harus di isi");
+                    }else if(slokasi.isEmpty()) {
+                        Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
+                    }else{
+                        registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,"");
+                    }
+                }
+            });
+
+            //Register sebaai Petani
+            binding.dashboardPetani.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sStatus="Petani";
+
+                    if(binding.dashboardNama.getText().length()==0){
+                        binding.dashboardNama.setError("Nama harus di isi");
+                    }else if(binding.dashboardNohp.getText().length()==0){
+                        binding.dashboardNohp.setError("Nomor Handphone harus di isi");
+                    }else if(binding.dashboardUsername.getText().length()==0){
+                        binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
+                    }else if(binding.dashboardPassword.getText().length()==0){
+                        binding.dashboardPassword.setError("Password harus di isi");
+                    }else if(slokasi.isEmpty()) {
+                        Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
+                    }else{
+                        binding.linearNamaTokoDashboard.setVisibility(View.VISIBLE);
+                        binding.linearLoginDashboard.setVisibility(View.GONE);
+                        binding.linearRegisterDashboard.setVisibility(View.GONE);
+                        linearSessionLoginPetani.setVisibility(View.GONE);
+                        binding.dashboardSessionLogin.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            //Simpan Nama Toko
+            binding.dashboardSimpanNamaToko.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(binding.dashboardNamaToko.getText().length()==0){
+                        binding.dashboardNamaToko.setError("Nama Toko harus di isi");
+                    }else{
+                        registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,binding.dashboardNamaToko.getText().toString());
+                    }
+                }
+            });
+
+
+            //Login proses
+            binding.dashboardLoginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(binding.dashboardUsernameLogin.getText().length()==0){
+                        binding.dashboardUsernameLogin.setError("Username harus di isi");
+                    }else if(binding.dashboardPasswordLogin.getText().length()==0){
+                        binding.dashboardPasswordLogin.setError("Password harus di isi");
+                    }else{
+                        loginPengguna(binding.dashboardUsernameLogin.getText().toString(), binding.dashboardPasswordLogin.getText().toString());
+                    }
+                }
+            });
+
+            //dashboard Petani
+            binding.alamatPengirimanSessionLoginPetani.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent goToAturAlamatPengiriman = new Intent(getActivity(), AturAlamatPengiriman.class);
@@ -95,208 +239,67 @@ public class DashboardFragment extends Fragment {
                 }
             });
 
-        }else if(sessionManager.isLoggedIn()&&sStatusLogin!=null&&sStatusLogin.equalsIgnoreCase("Petani")){
-            linearSessionLoginPetani.setVisibility(View.VISIBLE);
-            binding.dashboardSessionLogin.setVisibility(View.GONE);
-            binding.linearLoginDashboard.setVisibility(View.GONE);
-            binding.linearRegisterDashboard.setVisibility(View.GONE);
-            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
-
-            //Set Session Login Petani Element
-            namaToko.setText(sNamaToko);
-            namaPetani.setText("Pengelola : "+sNama);
-            btnLogoutPetani.setOnClickListener(new View.OnClickListener() {
+            //pindah ke halaman atur produk penjualan
+            binding.aturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    sessionManager.logoutUser();
+                    Intent goToAturProdukPenjualan = new Intent(getActivity(), AturProdukPenjualan.class);
+                    startActivity(goToAturProdukPenjualan);
                 }
             });
 
-        }else{
-            binding.linearLoginDashboard.setVisibility(View.VISIBLE);
-            binding.linearRegisterDashboard.setVisibility(View.GONE);
-            binding.linearNamaTokoDashboard.setVisibility(View.GONE);
-            linearSessionLoginPetani.setVisibility(View.GONE);
-            binding.dashboardSessionLogin.setVisibility(View.GONE);
+            binding.pesananMasuk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                    goToActivityPesananToko.putExtra("judulActivity", "Pesanan Masuk");
+                    goToActivityPesananToko.putExtra("statusPesanan", "1,2");
+                    startActivity(goToActivityPesananToko);
+                }
+            });
+
+            binding.pesananDalamPengiriman.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                    goToActivityPesananToko.putExtra("judulActivity", "Pesanan Dalam Pengiriman");
+                    goToActivityPesananToko.putExtra("statusPesanan", "3");
+                    startActivity(goToActivityPesananToko);
+                }
+            });
+
+            binding.pesananSampai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                    goToActivityPesananToko.putExtra("judulActivity", "Pesanan Sampai");
+                    goToActivityPesananToko.putExtra("statusPesanan", "4");
+                    startActivity(goToActivityPesananToko);
+                }
+            });
+
+            binding.pesananSelesai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                    goToActivityPesananToko.putExtra("judulActivity", "Pesanan Selesai");
+                    goToActivityPesananToko.putExtra("statusPesanan", "5");
+                    startActivity(goToActivityPesananToko);
+                }
+            });
+
+            binding.pesananBatal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
+                    goToActivityPesananToko.putExtra("judulActivity", "Pesanan Batal");
+                    goToActivityPesananToko.putExtra("statusPesanan", "6");
+                    startActivity(goToActivityPesananToko);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
         }
-
-        //Register to Login
-        binding.dashboardLoginText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.linearLoginDashboard.setVisibility(View.VISIBLE);
-                binding.linearRegisterDashboard.setVisibility(View.GONE);
-            }
-        });
-
-        //Login to Register
-        binding.dashboardRegisterText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.linearRegisterDashboard.setVisibility(View.VISIBLE);
-                binding.linearLoginDashboard.setVisibility(View.GONE);
-            }
-        });
-
-        //Spinner Register Lokasi
-        loadListLokasi("");
-        binding.dashboardLokasi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(binding.dashboardLokasi.getSelectedItemPosition()!=0){
-                    slokasi = listLokasi.get(binding.dashboardLokasi.getSelectedItemPosition()-1).getId_lokasi();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                slokasi = "";
-            }
-        });
-
-        //Register sebagai Pembeli
-        binding.dashboardPembeli.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sStatus="Pembeli";
-
-                if(binding.dashboardNama.getText().length()==0){
-                    binding.dashboardNama.setError("Nama harus di isi");
-                }else if(binding.dashboardNohp.getText().length()==0){
-                    binding.dashboardNohp.setError("Nomor Handphone harus di isi");
-                }else if(binding.dashboardUsername.getText().length()==0){
-                    binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
-                }else if(binding.dashboardPassword.getText().length()==0){
-                    binding.dashboardPassword.setError("Password harus di isi");
-                }else if(slokasi.isEmpty()) {
-                    Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
-                }else{
-                    registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,"");
-                }
-            }
-        });
-
-        //Register sebaai Petani
-        binding.dashboardPetani.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sStatus="Petani";
-
-                if(binding.dashboardNama.getText().length()==0){
-                    binding.dashboardNama.setError("Nama harus di isi");
-                }else if(binding.dashboardNohp.getText().length()==0){
-                    binding.dashboardNohp.setError("Nomor Handphone harus di isi");
-                }else if(binding.dashboardUsername.getText().length()==0){
-                    binding.dashboardUsername.setError("Nama Pengguna / Username harus di isi");
-                }else if(binding.dashboardPassword.getText().length()==0){
-                    binding.dashboardPassword.setError("Password harus di isi");
-                }else if(slokasi.isEmpty()) {
-                    Toast.makeText(getActivity(), "Pilih lokasi kamu", Toast.LENGTH_SHORT).show();
-                }else{
-                    binding.linearNamaTokoDashboard.setVisibility(View.VISIBLE);
-                    binding.linearLoginDashboard.setVisibility(View.GONE);
-                    binding.linearRegisterDashboard.setVisibility(View.GONE);
-                    linearSessionLoginPetani.setVisibility(View.GONE);
-                    binding.dashboardSessionLogin.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        //Simpan Nama Toko
-        binding.dashboardSimpanNamaToko.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(binding.dashboardNamaToko.getText().length()==0){
-                    binding.dashboardNamaToko.setError("Nama Toko harus di isi");
-                }else{
-                    registerPengguna(binding.dashboardNama.getText().toString(), binding.dashboardNohp.getText().toString(), binding.dashboardUsername.getText().toString(), binding.dashboardPassword.getText().toString(), slokasi, sStatus,binding.dashboardNamaToko.getText().toString());
-                }
-            }
-        });
-
-
-        //Login proses
-        binding.dashboardLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(binding.dashboardUsernameLogin.getText().length()==0){
-                    binding.dashboardUsernameLogin.setError("Username harus di isi");
-                }else if(binding.dashboardPasswordLogin.getText().length()==0){
-                    binding.dashboardPasswordLogin.setError("Password harus di isi");
-                }else{
-                    loginPengguna(binding.dashboardUsernameLogin.getText().toString(), binding.dashboardPasswordLogin.getText().toString());
-                }
-            }
-        });
-
-        //dashboard Petani
-        binding.alamatPengirimanSessionLoginPetani.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToAturAlamatPengiriman = new Intent(getActivity(), AturAlamatPengiriman.class);
-                startActivity(goToAturAlamatPengiriman);
-            }
-        });
-
-        //pindah ke halaman atur produk penjualan
-        binding.aturProdukPenjualan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToAturProdukPenjualan = new Intent(getActivity(), AturProdukPenjualan.class);
-                startActivity(goToAturProdukPenjualan);
-            }
-        });
-
-        binding.pesananMasuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
-                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Masuk");
-                goToActivityPesananToko.putExtra("statusPesanan", "1,2");
-                startActivity(goToActivityPesananToko);
-            }
-        });
-
-        binding.pesananDalamPengiriman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
-                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Dalam Pengiriman");
-                goToActivityPesananToko.putExtra("statusPesanan", "3");
-                startActivity(goToActivityPesananToko);
-            }
-        });
-
-        binding.pesananSampai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
-                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Sampai");
-                goToActivityPesananToko.putExtra("statusPesanan", "4");
-                startActivity(goToActivityPesananToko);
-            }
-        });
-
-        binding.pesananSelesai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
-                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Selesai");
-                goToActivityPesananToko.putExtra("statusPesanan", "5");
-                startActivity(goToActivityPesananToko);
-            }
-        });
-
-        binding.pesananBatal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToActivityPesananToko = new Intent(getActivity(), ActivityPesananToko.class);
-                goToActivityPesananToko.putExtra("judulActivity", "Pesanan Batal");
-                goToActivityPesananToko.putExtra("statusPesanan", "6");
-                startActivity(goToActivityPesananToko);
-            }
-        });
-
         return root;
     }
 

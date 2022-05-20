@@ -37,31 +37,32 @@ public class Add_Alamat extends AppCompatActivity {
         binding = ActivityAddAlamatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //button simpan alamat action
-        binding.simpanAlamat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(binding.addJudulAlamat.getText().toString().length()==0){
-                    binding.addJudulAlamat.setError("Field ini harus di isi");
-                }else if(binding.addNamaPenerima.getText().toString().length()==0){
-                    binding.addNamaPenerima.setError("Field ini harus di isi");
-                }else if(binding.addNohpPenerima.getText().toString().length()==0){
-                    binding.addNohpPenerima.setError("Field ini harus di isi");
-                }else if(binding.addAlamatLengkap.getText().toString().length()==0){
-                    binding.addAlamatLengkap.setError("Field ini harus di isi");
-                }else{
-                    simpanAlamatUser(binding.addJudulAlamat.getText().toString(), binding.addNamaPenerima.getText().toString(), binding.addNohpPenerima.getText().toString(), binding.addAlamatLengkap.getText().toString(), sId, "Aktif");
+            //button simpan alamat action
+            binding.simpanAlamat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(binding.addJudulAlamat.getText().toString().length()==0){
+                        binding.addJudulAlamat.setError("Field ini harus di isi");
+                    }else if(binding.addNamaPenerima.getText().toString().length()==0){
+                        binding.addNamaPenerima.setError("Field ini harus di isi");
+                    }else if(binding.addNohpPenerima.getText().toString().length()==0){
+                        binding.addNohpPenerima.setError("Field ini harus di isi");
+                    }else if(binding.addAlamatLengkap.getText().toString().length()==0){
+                        binding.addAlamatLengkap.setError("Field ini harus di isi");
+                    }else{
+                        simpanAlamatUser(binding.addJudulAlamat.getText().toString(), binding.addNamaPenerima.getText().toString(), binding.addNohpPenerima.getText().toString(), binding.addAlamatLengkap.getText().toString(), sId, "Aktif");
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
 
-
-
+        }
     }
 
     @Override

@@ -51,47 +51,51 @@ public class Keranjang extends AppCompatActivity implements KeranjangListListene
         binding = ActivityKeranjangBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+//membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //request data list alamat
-        loadListKeranjang(sId);
+            //request data list alamat
+            loadListKeranjang(sId);
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListKeranjang(sId);
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
-
-        //set data list alamat to recyclerview
-        adapterKeranjang = new AdapterKeranjang(Keranjang.this, listKeranjang, Keranjang.this);
-        RecyclerView.LayoutManager keranjangLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerKeranjang.setLayoutManager(keranjangLayout);
-        binding.recyclerKeranjang.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerKeranjang.setAdapter(adapterKeranjang);
-
-        //go to AlamatCheckout
-        binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(jumlahToko<2){
-                    Intent goToAlamatCheckout = new Intent(Keranjang.this, AlamatCheckout.class);
-                    goToAlamatCheckout.putExtra("listIdKeranjang", listIdKeranjang.toString());
-                    goToAlamatCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
-                    goToAlamatCheckout.putExtra("idToko",idToko);
-                    goToAlamatCheckout.putExtra("hargaPesanan", String.valueOf(hargaTotalItemPesanan));
-                    startActivity(goToAlamatCheckout);
-                }else{
-                    Toast.makeText(Keranjang.this, "Kamu hanya dapat memproses produk yang berasal dari 1 toko", Toast.LENGTH_SHORT).show();
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListKeranjang(sId);
+                    binding.swipeRefresh.setRefreshing(false);
                 }
+            });
 
-            }
-        });
+            //set data list alamat to recyclerview
+            adapterKeranjang = new AdapterKeranjang(Keranjang.this, listKeranjang, Keranjang.this);
+            RecyclerView.LayoutManager keranjangLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerKeranjang.setLayoutManager(keranjangLayout);
+            binding.recyclerKeranjang.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerKeranjang.setAdapter(adapterKeranjang);
+
+            //go to AlamatCheckout
+            binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(jumlahToko<2){
+                        Intent goToAlamatCheckout = new Intent(Keranjang.this, AlamatCheckout.class);
+                        goToAlamatCheckout.putExtra("listIdKeranjang", listIdKeranjang.toString());
+                        goToAlamatCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
+                        goToAlamatCheckout.putExtra("idToko",idToko);
+                        goToAlamatCheckout.putExtra("hargaPesanan", String.valueOf(hargaTotalItemPesanan));
+                        startActivity(goToAlamatCheckout);
+                    }else{
+                        Toast.makeText(Keranjang.this, "Kamu hanya dapat memproses produk yang berasal dari 1 toko", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

@@ -54,37 +54,41 @@ public class AturAlamatPengiriman extends AppCompatActivity {
         binding = ActivityAturAlamatPengirimanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
 
-        //request data list alamat
-        loadListAlamat(sId, "Aktif");
+            //request data list alamat
+            loadListAlamat(sId, "Aktif");
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListAlamat(sId, "Aktif");
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListAlamat(sId, "Aktif");
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
 
-        //set data list alamat to recyclerview
-        adapterAlamatUser = new AdapterAlamatUser(AturAlamatPengiriman.this, listAlamatUser);
-        RecyclerView.LayoutManager alamatUserLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerAlamat.setLayoutManager(alamatUserLayout);
-        binding.recyclerAlamat.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerAlamat.setAdapter(adapterAlamatUser);
+            //set data list alamat to recyclerview
+            adapterAlamatUser = new AdapterAlamatUser(AturAlamatPengiriman.this, listAlamatUser);
+            RecyclerView.LayoutManager alamatUserLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerAlamat.setLayoutManager(alamatUserLayout);
+            binding.recyclerAlamat.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerAlamat.setAdapter(adapterAlamatUser);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToAddAlamat = new Intent(AturAlamatPengiriman.this, Add_Alamat.class);
-                startActivity(goToAddAlamat);
-            }
-        });
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToAddAlamat = new Intent(AturAlamatPengiriman.this, Add_Alamat.class);
+                    startActivity(goToAddAlamat);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override

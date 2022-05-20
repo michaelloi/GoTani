@@ -53,57 +53,60 @@ public class PesananFragment extends Fragment {
         binding = FragmentPesananBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //Spinner Status Pesanan
-        loadListStatusPesanan("");
-        binding.pesananStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(binding.pesananStatus.getSelectedItemPosition()!=0){
-                    sStatusPesanan = listStatusPesanan.get(binding.pesananStatus.getSelectedItemPosition()-1).getNama_status_pesanan();
-                    sIdStatusPesanan = listStatusPesanan.get(binding.pesananStatus.getSelectedItemPosition()-1).getId_status_pesanan();
-                    loadListPesanan(sId, sIdStatusPesanan);
-                }else{
-                    sIdStatusPesanan="0";
-                    loadListPesanan(sId,sIdStatusPesanan);
+        try{
+            //Spinner Status Pesanan
+            loadListStatusPesanan("");
+            binding.pesananStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(binding.pesananStatus.getSelectedItemPosition()!=0){
+                        sStatusPesanan = listStatusPesanan.get(binding.pesananStatus.getSelectedItemPosition()-1).getNama_status_pesanan();
+                        sIdStatusPesanan = listStatusPesanan.get(binding.pesananStatus.getSelectedItemPosition()-1).getId_status_pesanan();
+                        loadListPesanan(sId, sIdStatusPesanan);
+                    }else{
+                        sIdStatusPesanan="0";
+                        loadListPesanan(sId,sIdStatusPesanan);
+                    }
                 }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    sStatusPesanan = "";
+                    sIdStatusPesanan = "0";
+                    Toast.makeText(getActivity(), "ini dari nothing "+sIdStatusPesanan, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getActivity().getApplicationContext());
+            if(sessionManager.isLoggedIn()){
+                HashMap<String, String> user = sessionManager.getUserDetails();
+                sId = user.get(SessionManager.USER_ID);
+            }else{
+                sId="";
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                sStatusPesanan = "";
-                sIdStatusPesanan = "0";
-                Toast.makeText(getActivity(), "ini dari nothing "+sIdStatusPesanan, Toast.LENGTH_SHORT).show();
-            }
-        });
+            //request data list pesanan
+            loadListPesanan(sId, sIdStatusPesanan);
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        if(sessionManager.isLoggedIn()){
-            HashMap<String, String> user = sessionManager.getUserDetails();
-            sId = user.get(SessionManager.USER_ID);
-        }else{
-            sId="";
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListPesanan(sId, sIdStatusPesanan);
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
+
+            //set data list alamat to recyclerview
+            adapterPesanan = new AdapterPesanan(getActivity(), listPesanan);
+            RecyclerView.LayoutManager pesananLayout = new GridLayoutManager(getActivity().getApplicationContext(), 1);
+            binding.recyclerPesanan.setLayoutManager(pesananLayout);
+            binding.recyclerPesanan.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerPesanan.setAdapter(adapterPesanan);
+        }catch (Exception e){
+            System.out.println(e);
         }
-
-        //request data list pesanan
-        loadListPesanan(sId, sIdStatusPesanan);
-
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListPesanan(sId, sIdStatusPesanan);
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
-
-        //set data list alamat to recyclerview
-        adapterPesanan = new AdapterPesanan(getActivity(), listPesanan);
-        RecyclerView.LayoutManager pesananLayout = new GridLayoutManager(getActivity().getApplicationContext(), 1);
-        binding.recyclerPesanan.setLayoutManager(pesananLayout);
-        binding.recyclerPesanan.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerPesanan.setAdapter(adapterPesanan);
-
         return root;
     }
 

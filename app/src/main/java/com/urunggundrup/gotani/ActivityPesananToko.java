@@ -50,29 +50,33 @@ public class ActivityPesananToko extends AppCompatActivity {
         binding = ActivityPesananTokoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sIdToko = user.get(SessionManager.USER_ID_TOKO);
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sIdToko = user.get(SessionManager.USER_ID_TOKO);
 
-        //request data list pesanan
-        loadListPesananToko(sIdToko, getData.getStringExtra("statusPesanan"));
+            //request data list pesanan
+            loadListPesananToko(sIdToko, getData.getStringExtra("statusPesanan"));
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListPesananToko(sIdToko, getData.getStringExtra("statusPesanan"));
-                binding.swipeRefresh.setRefreshing(false);
-            }
-        });
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListPesananToko(sIdToko, getData.getStringExtra("statusPesanan"));
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
 
-        //set data list alamat to recyclerview
-        adapterPesananToko = new AdapterPesananToko(ActivityPesananToko.this, listPesananToko);
-        RecyclerView.LayoutManager pesananLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerPesanan.setLayoutManager(pesananLayout);
-        binding.recyclerPesanan.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerPesanan.setAdapter(adapterPesananToko);
+            //set data list alamat to recyclerview
+            adapterPesananToko = new AdapterPesananToko(ActivityPesananToko.this, listPesananToko);
+            RecyclerView.LayoutManager pesananLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerPesanan.setLayoutManager(pesananLayout);
+            binding.recyclerPesanan.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerPesanan.setAdapter(adapterPesananToko);
+        }catch (Exception e){
+            System.out.println();
+        }
     }
 
     @Override

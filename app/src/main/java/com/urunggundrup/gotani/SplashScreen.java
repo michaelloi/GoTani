@@ -13,21 +13,25 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        try{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(2000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent a = new Intent(SplashScreen.this, MainActivity.class);
-                    a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(a);
+            Thread timerThread = new Thread(){
+                public void run(){
+                    try{
+                        sleep(2000);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }finally{
+                        Intent a = new Intent(SplashScreen.this, MainActivity.class);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(a);
+                    }
                 }
-            }
-        };
-        timerThread.start();
+            };
+            timerThread.start();
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }

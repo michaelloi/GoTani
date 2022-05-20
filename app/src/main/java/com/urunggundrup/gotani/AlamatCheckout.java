@@ -55,53 +55,57 @@ public class AlamatCheckout extends AppCompatActivity implements AlamatListListe
         binding = ActivityAlamatCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //membaca session aplikasi
-        sessionManager = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        sId = user.get(SessionManager.USER_ID);
-        listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
-        jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
-        hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
-        idToko = getDataKeranjang.getStringExtra("idToko");
+        try{
+            //membaca session aplikasi
+            sessionManager = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            sId = user.get(SessionManager.USER_ID);
+            listIdKeranjang = getDataKeranjang.getStringExtra("listIdKeranjang");
+            jumlahToko = getDataKeranjang.getStringExtra("jumlahToko");
+            hargaPesanan = getDataKeranjang.getStringExtra("hargaPesanan");
+            idToko = getDataKeranjang.getStringExtra("idToko");
 
-        //request data list alamat
-        loadListAlamat(sId, "Aktif");
+            //request data list alamat
+            loadListAlamat(sId, "Aktif");
 
-        //swipe refresh action
-        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadListAlamat(sId, "Aktif");
-                binding.swipeRefresh.setRefreshing(false);
-                binding.bottom.setVisibility(View.GONE);
-            }
-        });
+            //swipe refresh action
+            binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadListAlamat(sId, "Aktif");
+                    binding.swipeRefresh.setRefreshing(false);
+                    binding.bottom.setVisibility(View.GONE);
+                }
+            });
 
-        //set data list alamat to recyclerview
-        adapterAlamatCheckout = new AdapterAlamatCheckout(AlamatCheckout.this, listAlamatUser, AlamatCheckout.this);
-        RecyclerView.LayoutManager alamatUserLayout = new GridLayoutManager(getApplicationContext(), 1);
-        binding.recyclerAlamat.setLayoutManager(alamatUserLayout);
-        binding.recyclerAlamat.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerAlamat.setAdapter(adapterAlamatCheckout);
+            //set data list alamat to recyclerview
+            adapterAlamatCheckout = new AdapterAlamatCheckout(AlamatCheckout.this, listAlamatUser, AlamatCheckout.this);
+            RecyclerView.LayoutManager alamatUserLayout = new GridLayoutManager(getApplicationContext(), 1);
+            binding.recyclerAlamat.setLayoutManager(alamatUserLayout);
+            binding.recyclerAlamat.setItemAnimator(new DefaultItemAnimator());
+            binding.recyclerAlamat.setAdapter(adapterAlamatCheckout);
 
-        binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToCheckout = new Intent(AlamatCheckout.this, CheckOut.class);
-                goToCheckout.putExtra("listIdKeranjang", listIdKeranjang);
-                goToCheckout.putExtra("idToko",idToko);
-                goToCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
-                goToCheckout.putExtra("hargaPesanan", String.valueOf(hargaPesanan));
-                goToCheckout.putExtra("hargaOngkir", String.valueOf(hargaOngkir));
-                goToCheckout.putExtra("hargaPesananTotal", String.valueOf(hargaPesananTotal));
-                goToCheckout.putExtra("idAlamat", idAlamatChecked);
-                goToCheckout.putExtra("judulAlamatChecked", judulAlamatChecked);
-                goToCheckout.putExtra("namaPenerimaChecked", namaPenerimaChecked);
-                goToCheckout.putExtra("nohpPenerimaChecked", nohpPenerimaChecked);
-                goToCheckout.putExtra("alamatPenerimaChecked", alamatPenerimaChecked);
-                startActivity(goToCheckout);
-            }
-        });
+            binding.selanjutnya.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToCheckout = new Intent(AlamatCheckout.this, CheckOut.class);
+                    goToCheckout.putExtra("listIdKeranjang", listIdKeranjang);
+                    goToCheckout.putExtra("idToko",idToko);
+                    goToCheckout.putExtra("jumlahToko", String.valueOf(jumlahToko));
+                    goToCheckout.putExtra("hargaPesanan", String.valueOf(hargaPesanan));
+                    goToCheckout.putExtra("hargaOngkir", String.valueOf(hargaOngkir));
+                    goToCheckout.putExtra("hargaPesananTotal", String.valueOf(hargaPesananTotal));
+                    goToCheckout.putExtra("idAlamat", idAlamatChecked);
+                    goToCheckout.putExtra("judulAlamatChecked", judulAlamatChecked);
+                    goToCheckout.putExtra("namaPenerimaChecked", namaPenerimaChecked);
+                    goToCheckout.putExtra("nohpPenerimaChecked", nohpPenerimaChecked);
+                    goToCheckout.putExtra("alamatPenerimaChecked", alamatPenerimaChecked);
+                    startActivity(goToCheckout);
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override
